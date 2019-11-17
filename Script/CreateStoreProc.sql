@@ -750,9 +750,9 @@ begin tran
 commit
 go
 
-drop procedure if exists CapNhapThanhVien
+drop procedure if exists CapNhapThanhVien_Deadlock_fixed
 go
-create procedure CapNhapThanhVien
+create procedure CapNhapThanhVien_Deadlock_fixed
 	@MaThanhVien int,
 	@TenThanhVien nvarchar(256),
 	@CMND nvarchar(12),
@@ -780,9 +780,9 @@ begin tran
 commit
 go
 
-drop procedure if exists CapNhapVoucher
+drop procedure if exists CapNhapVoucher_Deadlock_fixed
 go
-create procedure CapNhapVoucher
+create procedure CapNhapVoucher_Deadlock_fixed
 	@MaKhuyenMai int,
 	@GiaTri nvarchar(256)
 as
