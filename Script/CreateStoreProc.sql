@@ -1,6 +1,21 @@
 use HuongVietRestaurant
 go
 
+drop procedure if exists DangNhap
+go
+create procedure DangNhap
+	@TenDangNhap nvarchar(32),
+	@MatKhau nvarchar(32)
+as
+	select MaNhanVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, QuyenHan 
+	from NhanVien
+	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
+	UNION 
+	select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, '0' as QuyenHan 
+	from ThanhVien
+	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
+go
+
 -- Select 
 drop procedure if exists XemThanhVien
 go

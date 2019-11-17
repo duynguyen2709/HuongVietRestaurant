@@ -1,7 +1,10 @@
 ﻿USE master ;  
 GO  
-ALTER DATABASE [HuongVietRestaurant] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-DROP DATABASE [HuongVietRestaurant] ;  
+IF EXISTS(select * from sys.databases where name='HuongVietRestaurant')
+BEGIN
+	ALTER DATABASE [HuongVietRestaurant] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+	DROP DATABASE [HuongVietRestaurant] ;  
+END
 GO  
 
 CREATE DATABASE [HuongVietRestaurant];
@@ -88,6 +91,8 @@ CREATE INDEX [FK_ChiNhanh_Phuong_idx] ON ChiNhanh ([MaPhuong]);
 CREATE TABLE ThanhVien (
   [MaThanhVien] int NOT NULL IDENTITY,
   [MaChiNhanh] int NOT NULL,
+  [TenDangNhap] nvarchar(32) NOT NULL DEFAULT '',
+  [MatKhau] nvarchar(32) NOT NULL DEFAULT '',
   [HoTen] nvarchar(256) NOT NULL DEFAULT '',
   [CMND] nvarchar(12) NOT NULL DEFAULT '',
   [SoDienThoai] nvarchar(10) NOT NULL DEFAULT '',
@@ -193,6 +198,8 @@ CREATE INDEX [FK_ChiTietGioHang_MonAn_idx] ON ChiTietGioHang ([MaMonAn]);
 CREATE TABLE NhanVien (
   [MaNhanVien] int NOT NULL IDENTITY,
   [MaChiNhanh] int NOT NULL,
+  [TenDangNhap] nvarchar(32) NOT NULL DEFAULT '',
+  [MatKhau] nvarchar(32) NOT NULL DEFAULT '',
   [HoTen] nvarchar(256) NOT NULL DEFAULT '',
   [CMND] nvarchar(12) NOT NULL DEFAULT '',
   [SoDienThoai] nvarchar(10) NOT NULL DEFAULT '',
@@ -260,11 +267,11 @@ INSERT INTO ChiNhanh (MaChiNhanh,TenChiNhanh,MaPhuong,DiaChi,SoDienThoai) VALUES
 SET IDENTITY_INSERT ChiNhanh OFF
 
 SET IDENTITY_INSERT NhanVien ON
-INSERT INTO NhanVien (MaNhanVien,MaChiNhanh,HoTen,CMND,SoDienThoai,Email,NgaySinh,DiaChi,QuyenHan) VALUES (1,1,'Trần Văn C','272683901','0948202709','tranvanc@gmail.com','1992-07-21','qewqeqwqw',4),(2,2,'Nguyễn Văn C','211728191','0911923131','nguyenvand@gmail.com','1993-03-03','1111',2);
+INSERT INTO NhanVien (MaNhanVien,MaChiNhanh,TenDangNhap,MatKhau,HoTen,CMND,SoDienThoai,Email,NgaySinh,DiaChi,QuyenHan) VALUES (1,1,'admin','123','Trần Văn C','272683901','0948202709','tranvanc@gmail.com','1992-07-21','qewqeqwqw',4),(2,2,'staff','123','Nguyễn Văn C','211728191','0911923131','nguyenvand@gmail.com','1993-03-03','1111',2);
 SET IDENTITY_INSERT NhanVien OFF
 
 SET IDENTITY_INSERT ThanhVien ON
-INSERT INTO ThanhVien (MaThanhVien,MaChiNhanh,HoTen,CMND,SoDienThoai,Email,NgaySinh,DiaChi,DiemTichLuy) VALUES (1,1,'NGUYỄN VĂN A','123456789','0909808707','nguyenvana@gmail.com','1996-10-05','abc',80000),(2,2,'Trần Thị B','113446779','0382726830','tranthib@gmail.com','1990-01-15','xyz',40000);
+INSERT INTO ThanhVien (MaThanhVien,MaChiNhanh,TenDangNhap,MatKhau,HoTen,CMND,SoDienThoai,Email,NgaySinh,DiaChi,DiemTichLuy) VALUES (1,1,'test','123','NGUYỄN VĂN A','123456789','0909808707','nguyenvana@gmail.com','1996-10-05','abc',80000),(2,2,'user','123','Trần Thị B','113446779','0382726830','tranthib@gmail.com','1990-01-15','xyz',40000);
 SET IDENTITY_INSERT ThanhVien OFF
 
 SET IDENTITY_INSERT GioHang ON
