@@ -7,11 +7,11 @@ create procedure DangNhap
 	@TenDangNhap nvarchar(32),
 	@MatKhau nvarchar(32)
 as
-	select MaNhanVien AS MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, QuyenHan 
+	select MaNhanVien AS MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi,  , '0' as DiemTichLuy
 	from NhanVien
 	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
 	UNION 
-	select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, '0' as QuyenHan 
+	select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, '0' as QuyenHan , DiemTichLuy
 	from ThanhVien
 	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
 go

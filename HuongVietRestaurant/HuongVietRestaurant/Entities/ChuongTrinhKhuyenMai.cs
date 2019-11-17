@@ -13,8 +13,8 @@ namespace HuongVietRestaurant.Entities
         public int MaLoai;
         public int DoiTuongApDung;
         public long GiaTri;
-        public DateTime NgayBatDau;
-        public DateTime NgayKetThuc;
+        public string NgayBatDau;
+        public string NgayKetThuc;
         public int SoLuong;
     }
 }

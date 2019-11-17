@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HuongVietRestaurant.Entities
 {
-    class MonAn
+    public class MonAn
     {
         public int MaMonAn;
         public string TenMonAn;
