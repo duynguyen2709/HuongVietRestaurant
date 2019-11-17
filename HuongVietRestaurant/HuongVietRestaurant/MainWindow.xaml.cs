@@ -12,8 +12,6 @@ namespace HuongVietRestaurant
         public MainWindow()
         {
             InitializeComponent();
-            var u = BaseDAO.XemMotDonHang(1);
-            Console.Write(u);
         }
     }
 }
