@@ -45,16 +45,14 @@ drop procedure if exists XemDonHang
 go
 create procedure XemDonHang
 as
-select D.MaDonHang, M.TenMonAn, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
+select D.MaDonHang, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
 from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
-left join DonHang D on CT.MaGio = D.MaGio
+left join DonHang D on CT.MaDonHang = D.MaDonHang
 left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
-left join GioHang GH on D.MaGio = GH.MaGio
-left join ThanhVien T on GH.MaThanhVien = T.MaThanhVien
+left join ThanhVien T on D.MaThanhVien = T.MaThanhVien
 left join REF_TrangThaiDonHang TR on D.TrangThai = TR.MaTrangThai
 left join REF_KenhDatHang K on D.KenhDatHang = K.MaKenh
-left join ChuongTrinhKhuyenMai KM on D.MaGiamGia = KM.TenChuongTrinh
-order by T.MaThanhVien
+order by D.MaDonHang
 go
 
 drop procedure if exists XemMotThanhVien
@@ -92,16 +90,15 @@ go
 create procedure XemMotDonHang
 	@MaDonHang int
 as
-	select D.MaDonHang, M.TenMonAn, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
-	from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
-	left join DonHang D on CT.MaGio = D.MaGio
-	left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
-	left join GioHang GH on D.MaGio = GH.MaGio
-	left join ThanhVien T on GH.MaThanhVien = T.MaThanhVien
-	left join REF_TrangThaiDonHang TR on D.TrangThai = TR.MaTrangThai
-	left join REF_KenhDatHang K on D.KenhDatHang = K.MaKenh
-	left join ChuongTrinhKhuyenMai KM on D.MaGiamGia = KM.TenChuongTrinh
-	where D.MaDonHang = @MaDonHang
+select D.MaDonHang, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
+from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
+left join DonHang D on CT.MaDonHang = D.MaDonHang
+left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
+left join ThanhVien T on D.MaThanhVien = T.MaThanhVien
+left join REF_TrangThaiDonHang TR on D.TrangThai = TR.MaTrangThai
+left join REF_KenhDatHang K on D.KenhDatHang = K.MaKenh
+where D.MaDonHang = @MaDonHang
+order by D.MaDonHang
 go
 
 --Unrepeatable read
@@ -168,7 +165,7 @@ go
 drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead
 go
 create procedure GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead
-	@MaGio int,
+	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
@@ -177,14 +174,14 @@ DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang 
-WHERE MaMonAn = @MaMonAn and MaGio = @MaGio
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaGio = @MaGio
+FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
@@ -258,7 +255,7 @@ go
 drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed
 go
 create procedure GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed
-	@MaGio int,
+	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
@@ -267,14 +264,14 @@ DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang with (RepeatableRead) 
-WHERE MaMonAn = @MaMonAn and MaGio = @MaGio
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaGio = @MaGio
+FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
@@ -307,11 +304,11 @@ go
 drop procedure if exists CapNhapSoLuongMonAnTrongChiTietGioHang
 go
 create procedure CapNhapSoLuongMonAnTrongChiTietGioHang
-	@MaGio int,
+	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
-	update ChiTietGioHang set SoLuong = @SoLuong where  MaGio = @MaGio and MaMonAn = @MaMonAn
+	update ChiTietGioHang set SoLuong = @SoLuong where  MaDonHang = @MaDonHang and MaMonAn = @MaMonAn
 go
 
 --phantom

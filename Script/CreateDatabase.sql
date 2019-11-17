@@ -144,18 +144,10 @@ CREATE TABLE ChuongTrinhKhuyenMai (
 
 CREATE INDEX [FK_ChuongTrinhKhuyenMai_REFLoaiKhuyenMai_idx] ON ChuongTrinhKhuyenMai ([MaLoai]);
 
-create table GioHang(
-	[MaGio] int IDENTITY(1,1),
-	[MaThanhVien] int not null,
-	[TinhTrang] nvarchar(256),
-	PRIMARY KEY ([MaGio]),
-	CONSTRAINT [FK_GioHang_ThanhVien] FOREIGN KEY ([MaThanhVien]) REFERENCES ThanhVien ([MaThanhVien])
-);
-
 CREATE TABLE DonHang (
   [MaDonHang] int NOT NULL IDENTITY,
   [MaChiNhanh] int NOT NULL,
-  [MaGio] int DEFAULT NULL,
+  [MaThanhVien] int NOT NULL DEFAULT '0',
   [ThoiGianTao] datetime2(0) NOT NULL,
   [ThoiGianGiaoHang] datetime2(0) NOT NULL,
   [TrangThai] int NOT NULL,
@@ -170,25 +162,23 @@ CREATE TABLE DonHang (
  ,
   CONSTRAINT [FK_DonHang_ChiNhanh] FOREIGN KEY ([MaChiNhanh]) REFERENCES ChiNhanh ([MaChiNhanh]),
   CONSTRAINT [FK_DonHang_KenhDatHang] FOREIGN KEY ([KenhDatHang]) REFERENCES REF_KenhDatHang ([MaKenh]),
-  CONSTRAINT [FK_DonHang_GioHang] FOREIGN KEY ([MaGio]) REFERENCES GioHang ([MaGio]),
-  CONSTRAINT [FK_DonHang_TrangThai] FOREIGN KEY ([TrangThai]) REFERENCES REF_TrangThaiDonHang ([MaTrangThai])
+  CONSTRAINT [FK_DonHang_TrangThai] FOREIGN KEY ([TrangThai]) REFERENCES REF_TrangThaiDonHang ([MaTrangThai]),
+  CONSTRAINT [FK_DonHang_ThanhVien] FOREIGN KEY ([MaThanhVien]) REFERENCES ThanhVien ([MaThanhVien])
 )  ;
 
 CREATE INDEX [FK_DonHang_ChiNhanh_idx] ON DonHang ([MaChiNhanh]);
-CREATE INDEX [FK_DonHang_GioHang_idx] ON DonHang ([MaGio]);
 CREATE INDEX [FK_DonHang_TrangThai_idx] ON DonHang ([TrangThai]);
 CREATE INDEX [FK_DonHang_KenhDatHang_idx] ON DonHang ([KenhDatHang]);
 
 
-
 CREATE TABLE ChiTietGioHang (
-  [MaGio] int NOT NULL,
+  [MaDonHang] int NOT NULL,
   [MaMonAn] int NOT NULL,
   [SoLuong] int NOT NULL DEFAULT '0',
   [TongTien] bigint NOT NULL DEFAULT '0',
-  PRIMARY KEY ([MaGio],[MaMonAn])
+  PRIMARY KEY ([MaDonHang],[MaMonAn])
  ,
-  CONSTRAINT [FK_ChiTietGioHang_GioHang] FOREIGN KEY ([MaGio]) REFERENCES GioHang ([MaGio]),
+  CONSTRAINT [FK_ChiTietGioHang_GioHang] FOREIGN KEY ([MaDonHang]) REFERENCES DonHang ([MaDonHang]),
   CONSTRAINT [FK_ChiTietGioHang_MonAn] FOREIGN KEY ([MaMonAn]) REFERENCES MonAn ([MaMonAn])
 )  ;
 
@@ -273,12 +263,8 @@ SET IDENTITY_INSERT ThanhVien ON
 INSERT INTO ThanhVien (MaThanhVien,MaChiNhanh,TenDangNhap,MatKhau,HoTen,CMND,SoDienThoai,Email,NgaySinh,DiaChi,DiemTichLuy) VALUES (1,1,'test','123','NGUYỄN VĂN A','123456789','0909808707','nguyenvana@gmail.com','1996-10-05','abc',80000),(2,2,'user','123','Trần Thị B','113446779','0382726830','tranthib@gmail.com','1990-01-15','xyz',40000);
 SET IDENTITY_INSERT ThanhVien OFF
 
-SET IDENTITY_INSERT GioHang ON
-INSERT INTO GioHang(MaGio,MaThanhVien,TinhTrang) VALUES (1,1,'Chưa thanh toán'),(2,2,'Đã thanh toán');
-SET IDENTITY_INSERT GioHang OFF
-
 SET IDENTITY_INSERT DonHang ON
-INSERT INTO DonHang (MaDonHang,MaChiNhanh,MaGio,ThoiGianTao,ThoiGianGiaoHang,TrangThai,TongTien,PhiGiaoHang,PhuongThucThanhToan,DiaChiGiaoHang,KenhDatHang,MaGiamGia,ThoiGianCapNhat) VALUES (1,1,1,'2019-10-21 15:30:00.000','2019-10-21 18:30:00.000',6,80000,20000,1,'abc',1,NULL,'2019-10-21 18:30:00.000'),(2,2,2,'2019-10-22 10:30:00.000','2019-10-22 13:30:00.000',2,40000,50000,1,'xyz',1,NULL,'2019-10-22 10:35:00.000');
+INSERT INTO DonHang (MaDonHang,MaChiNhanh,MaThanhVien,ThoiGianTao,ThoiGianGiaoHang,TrangThai,TongTien,PhiGiaoHang,PhuongThucThanhToan,DiaChiGiaoHang,KenhDatHang,MaGiamGia,ThoiGianCapNhat) VALUES (1,1,1,'2019-10-21 15:30:00.000','2019-10-21 18:30:00.000',6,80000,20000,1,'abc',1,NULL,'2019-10-21 18:30:00.000'),(2,2,2,'2019-10-22 10:30:00.000','2019-10-22 13:30:00.000',2,40000,50000,1,'xyz',1,NULL,'2019-10-22 10:35:00.000');
 SET IDENTITY_INSERT DonHang OFF
 
 SET IDENTITY_INSERT ChuongTrinhKhuyenMai ON
@@ -313,7 +299,7 @@ INSERT INTO MonAn (MaMonAn,MaLoai,TenMonAn,URLHinhMonAn,MoTa,Gia,SoLuong) VALUES
 		10);
 SET IDENTITY_INSERT MonAn OFF
 
-INSERT INTO ChiTietGioHang (MaGio,MaMonAn,SoLuong,TongTien) VALUES (1,3,1,80000),(2,1,1,40000);
+INSERT INTO ChiTietGioHang (MaDonHang,MaMonAn,SoLuong,TongTien) VALUES (1,3,1,80000),(2,1,1,40000);
 
 INSERT INTO ThucDon (MaMonAn,MaChiNhanh,Ngay,SoLuong) VALUES (1,1,'2019-10-21',5),(1,2,'2019-10-21',7),(1,3,'2019-10-21',10),(2,1,'2019-10-21',7),(2,2,'2019-10-21',5);
 
