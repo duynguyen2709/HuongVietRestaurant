@@ -13,6 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Data.SqlClient;
+using HuongVietRestaurant.Utilities;
+using HuongVietRestaurant.DAO;
+using HuongVietRestaurant.Entities;
+
 namespace HuongVietRestaurant
 {
     /// <summary>
@@ -23,6 +28,8 @@ namespace HuongVietRestaurant
         public MainWindow()
         {
             InitializeComponent();
+            ThanhVien u =  BaseDAO.DangNhap("test", "123");
+            Console.Write(u);
         }
     }
 }

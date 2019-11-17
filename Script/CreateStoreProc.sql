@@ -7,7 +7,7 @@ create procedure DangNhap
 	@TenDangNhap nvarchar(32),
 	@MatKhau nvarchar(32)
 as
-	select MaNhanVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, QuyenHan 
+	select MaNhanVien AS MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, QuyenHan 
 	from NhanVien
 	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
 	UNION 
