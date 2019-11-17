@@ -25,6 +25,14 @@ select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichL
 from ThanhVien
 go
 
+drop procedure if exists XemChuongTrinhKhuyenMai
+go
+create procedure XemChuongTrinhKhuyenMai
+as
+select MaKhuyenMai, TenChuongTrinh, MaLoai, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong
+from ChuongTrinhKhuyenMai
+go
+
 drop procedure if exists XemMonAn
 go
 create procedure XemMonAn
@@ -57,6 +65,16 @@ as
 	select HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
 	from ThanhVien
 	where MaThanhVien = @MaThanhVien
+go
+
+drop procedure if exists XemMotChuongTrinhKhuyenMai
+go
+create procedure XemMotChuongTrinhKhuyenMai
+	@MaKhuyenMai int
+as
+	select MaKhuyenMai, TenChuongTrinh, MaLoai, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong
+	from ChuongTrinhKhuyenMai
+	where MaKhuyenMai = @MaKhuyenMai
 go
 
 drop procedure if exists XemMotMonAn
@@ -447,15 +465,14 @@ create procedure ThemVoucher_DirtyRead_T1
 	@TenChuongTrinh nvarchar(512),
 	@MaLoai int,
 	@DoiTuongApDung int,
-	@LoaiGiamGia smallint,
 	@GiaTri bigint,
 	@NgayBatDat date,
 	@NgayKetThuc date,
 	@SoLuong int
 as
 begin tran
-	insert into ChuongTrinhKhuyenMai (TenChuongTrinh, MaLoai, DoiTuongApDung, LoaiGiamGia, GiaTri, NgayBatDau, NgayKetThuc, SoLuong)
-	values (@TenChuongTrinh, @MaLoai, @DoiTuongApDung, @LoaiGiamGia, @GiaTri, @NgayBatDat, @NgayKetThuc, @SoLuong)
+	insert into ChuongTrinhKhuyenMai (TenChuongTrinh, MaLoai, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong)
+	values (@TenChuongTrinh, @MaLoai, @DoiTuongApDung, @GiaTri, @NgayBatDat, @NgayKetThuc, @SoLuong)
 
 	waitfor delay '00:00:05'
 

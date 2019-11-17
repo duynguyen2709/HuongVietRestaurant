@@ -133,7 +133,6 @@ CREATE TABLE ChuongTrinhKhuyenMai (
   [TenChuongTrinh] nvarchar(512) NOT NULL DEFAULT '',
   [MaLoai] int NOT NULL,
   [DoiTuongApDung] int DEFAULT NULL,
-  [LoaiGiamGia] smallint DEFAULT '0',
   [GiaTri] bigint DEFAULT '0',
   [NgayBatDau] date NOT NULL,
   [NgayKetThuc] date NOT NULL,
@@ -283,9 +282,9 @@ INSERT INTO DonHang (MaDonHang,MaChiNhanh,MaGio,ThoiGianTao,ThoiGianGiaoHang,Tra
 SET IDENTITY_INSERT DonHang OFF
 
 SET IDENTITY_INSERT ChuongTrinhKhuyenMai ON
-INSERT INTO ChuongTrinhKhuyenMai (MaKhuyenMai,TenChuongTrinh,MaLoai,DoiTuongApDung,LoaiGiamGia,GiaTri,NgayBatDau,NgayKetThuc, SoLuong) VALUES 
-		(1,'Khuyến mãi món nước',1,1,1,10,'2019-10-21','2019-10-25', 10),
-		(2,'Khuyến mãi chi nhánh',3,1,1,15,'2019-10-21','2019-10-25', 10);
+INSERT INTO ChuongTrinhKhuyenMai (MaKhuyenMai,TenChuongTrinh,MaLoai,DoiTuongApDung,GiaTri,NgayBatDau,NgayKetThuc, SoLuong) VALUES 
+		(1,'Khuyến mãi món nước',1,1,10,'2019-10-21','2019-10-25', 10),
+		(2,'Khuyến mãi chi nhánh',3,1,15,'2019-10-21','2019-10-25', 10);
 SET IDENTITY_INSERT ChuongTrinhKhuyenMai OFF
 
 SET IDENTITY_INSERT LoaiMonAn ON
