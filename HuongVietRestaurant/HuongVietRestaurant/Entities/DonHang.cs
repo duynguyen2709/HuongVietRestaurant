@@ -8,17 +8,17 @@ namespace HuongVietRestaurant.Entities
 {
     public class DonHang
     {
-        public int MaDonHang;
-        public string TenChiNhanh;
-        public string TenThanhVien;
-        public string ThoiGianTao;
-        public string ThoiGianGiaoHang;
-        public string TenTrangThai;
-        public long TongTien;
-        public long PhiGiaoHang;
-        public string PhuongThucThanhToan;
-        public string DiaChiGiaoHang;
-        public string TenKenhDatHang;
+        public int MaDonHang { get; set; }
+        public string TenChiNhanh { get; set; }
+        public string TenThanhVien { get; set; }
+        public string ThoiGianTao { get; set; }
+        public string ThoiGianGiaoHang { get; set; }
+        public string TenTrangThai { get; set; }
+        public long TongTien { get; set; }
+        public long PhiGiaoHang { get; set; }
+        public string PhuongThucThanhToan { get; set; }
+        public string DiaChiGiaoHang { get; set; }
+        public string TenKenhDatHang { get; set; }
         public List<ChiTietDonHang> ChiTiet = new List<ChiTietDonHang>();
 
         public class ChiTietDonHang

@@ -8,14 +8,14 @@ namespace HuongVietRestaurant.Entities
 {
     public class ThanhVien
     {
-        public int MaThanhVien;
-        public string HoTen;
-        public string CMND;
-        public string SoDienThoai;
-        public string Email;
-        public String NgaySinh;
-        public String DiaChi;
-        public int QuyenHan;
-        public long DiemTichLuy;
+        public int MaThanhVien { get; set; }
+        public string HoTen { get; set; }
+        public string CMND { get; set; }
+        public string SoDienThoai { get; set; }
+        public string Email { get; set; }
+        public String NgaySinh { get; set; }
+        public String DiaChi { get; set; }
+        public int QuyenHan { get; set; }
+        public long DiemTichLuy { get; set; }
     }
 }

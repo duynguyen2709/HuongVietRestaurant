@@ -8,13 +8,13 @@ namespace HuongVietRestaurant.Entities
 {
     public class ChuongTrinhKhuyenMai
     {
-        public int MaKhuyenMai;
-        public string TenChuongTrinh;
-        public int MaLoai;
-        public int DoiTuongApDung;
-        public long GiaTri;
-        public string NgayBatDau;
-        public string NgayKetThuc;
-        public int SoLuong;
+        public int MaKhuyenMai { get; set; }
+        public string TenChuongTrinh { get; set; }
+        public int MaLoai { get; set; }
+        public int DoiTuongApDung { get; set; }
+        public long GiaTri { get; set; }
+        public string NgayBatDau { get; set; }
+        public string NgayKetThuc { get; set; }
+        public int SoLuong { get; set; }
     }
 }
