@@ -99,7 +99,33 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Basket">
-                <DataGrid x:Name="dataGrid1" Margin="-5,0,0.4,0.2"/>
+                <DataGrid x:Name="dataGrid1" Margin="-5,0,0.4,0.2"  AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã đơn hàng" Binding="{Binding MaDonHang}" />
+                        <DataGridTextColumn Header="Tên chi nhánh" Binding="{Binding TenChiNhanh}" />
+                        <DataGridTextColumn Header="Tên thành viên" Binding="{Binding TenThanhVien}" />
+                        <DataGridTextColumn Header="Tổng tiền" Binding="{Binding TongTien}" />
+                        <DataGridTextColumn Header="Phí giao hàng" Binding="{Binding PhiGiaoHang}" />
+                        <DataGridTextColumn Header="Thời gian tạo" Binding="{Binding ThoiGianTao}" />
+                        <DataGridTextColumn Header="Thời gian giao hàng" Binding="{Binding ThoiGianGiaoHang}" />
+                        <DataGridTextColumn Header="Trạng thái" Binding="{Binding TenTrangThai}" />
+                        <DataGridTextColumn Header="Phương thức thanh toán" Binding="{Binding PhuongThucThanhToan}" />
+                        <DataGridTextColumn Header="Địa chỉ giao hàng" Binding="{Binding DiaChiGiaoHang}" />
+                        <DataGridTextColumn Header="Tên kênh đặt hàng" Binding="{Binding TenKenhDatHang}" />
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding ChiTiet}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Món ăn" Binding="{Binding TenMonAn}"/>
+                                    <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}"/>
+                                    <DataGridTextColumn Header="Giá" Binding="{Binding Gia}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+
+                </DataGrid>
             </TabItem>
             <TabItem Header="Voucher">
                 <DataGrid x:Name="dataGrid2" Margin="-5,0,0.4,0.2"/>

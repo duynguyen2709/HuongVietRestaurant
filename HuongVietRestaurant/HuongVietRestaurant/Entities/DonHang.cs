@@ -19,13 +19,15 @@ namespace HuongVietRestaurant.Entities
         public string PhuongThucThanhToan { get; set; }
         public string DiaChiGiaoHang { get; set; }
         public string TenKenhDatHang { get; set; }
-        public List<ChiTietDonHang> ChiTiet = new List<ChiTietDonHang>();
+        public List<ChiTietDonHang> ChiTiet { get => chiTiet; set => chiTiet = value; }
+
+        private List<ChiTietDonHang> chiTiet = new List<ChiTietDonHang>();
 
         public class ChiTietDonHang
         {
-            public string TenMonAn;
-            public int SoLuong;
-            public long Gia;
+            public string TenMonAn { get; set; }
+            public int SoLuong { get; set; }
+            public long Gia { get; set; }
 
             public ChiTietDonHang(string _ten, int _soluong, long _gia)
             {

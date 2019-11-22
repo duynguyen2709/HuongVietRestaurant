@@ -5,6 +5,8 @@ using System.Data;
 using HuongVietRestaurant.DAO;
 using HuongVietRestaurant.Entities;
 using System.Web.Script.Serialization;
+using static HuongVietRestaurant.Entities.DonHang;
+using System.Windows.Controls;
 
 namespace HuongVietRestaurant.Utilities
 {
@@ -40,24 +42,11 @@ namespace HuongVietRestaurant.Utilities
             DataTable table = new DataTable();
             foreach (PropertyDescriptor prop in properties)
                 table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-
-            if (typeof(T) == typeof(DonHang))
-            {
-                DataColumn col = new DataColumn("ChiTiet", typeof(string));
-                table.Columns.Add(col);
-            }
-
             foreach (T item in data)
             {
                 DataRow row = table.NewRow();
                 foreach (PropertyDescriptor prop in properties)
                     row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-
-                if (typeof(T) == typeof(DonHang))
-                {
-                    DonHang donHang = item as DonHang;
-                    row["ChiTiet"] = new JavaScriptSerializer().Serialize(donHang.ChiTiet);
-                }
                 table.Rows.Add(row);
             }
             return table;
