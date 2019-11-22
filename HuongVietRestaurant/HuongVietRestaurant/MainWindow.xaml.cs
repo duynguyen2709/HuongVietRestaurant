@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using HuongVietRestaurant.Utilities;
 using System.Windows.Controls;
-using System.Threading;
-
 namespace HuongVietRestaurant
 {
     /// <summary>
@@ -25,7 +23,8 @@ namespace HuongVietRestaurant
             ViewUtil.loadView(ViewEnum.MonAn);
             ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
             ViewUtil.loadView(ViewEnum.ThanhVien);
-            ViewUtil.loadView(ViewEnum.DonHang);          
-        }       
+            ViewUtil.loadView(ViewEnum.DonHang);
+            
+        }
     }
 }
