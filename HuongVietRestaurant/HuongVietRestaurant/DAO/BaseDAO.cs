@@ -393,7 +393,7 @@ namespace HuongVietRestaurant.DAO
             }
         }
 
-        public static void CapNhapSoLuongMonAn(int MaDonHang, int SoLuong)
+        public static void CapNhapSoLuongMonAn(int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -402,11 +402,184 @@ namespace HuongVietRestaurant.DAO
                 using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongMonAn.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
                     cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
                     cmd.ExecuteNonQuery();
                 }
             }
-        }        
+        }
+
+        public static void CapNhapMonAn_Deadlock(int MaMonAn, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapMonAn_Deadlock.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@TenMonAn", TenMonAn);
+                    cmd.Parameters.AddWithValue("@URLHinhMonAn", URLHinhMonAn);
+                    cmd.Parameters.AddWithValue("@MoTa", MoTa);
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void CapNhapMonAn_Deadlock_fixed(int MaMonAn, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapMonAn_Deadlock_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@TenMonAn", TenMonAn);
+                    cmd.Parameters.AddWithValue("@URLHinhMonAn", URLHinhMonAn);
+                    cmd.Parameters.AddWithValue("@MoTa", MoTa);
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ThemMotMonAn_DirtyRead_T1(int MaLoai, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia,int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemMotMonAn_DirtyRead_T1.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaLoai", MaLoai);
+                    cmd.Parameters.AddWithValue("@TenMonAn", TenMonAn);
+                    cmd.Parameters.AddWithValue("@URLHinhMonAn", URLHinhMonAn);
+                    cmd.Parameters.AddWithValue("@MoTa", MoTa);
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static List<MonAn> XemMonAn_DirtRead_T2()
+        {
+            List<MonAn> result = new List<MonAn>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemMonAn_DirtRead_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        MonAn row = new MonAn();
+                        row.MaMonAn = (int)reader["MaMonAn"];
+                        row.TenMonAn = (string)reader["TenMonAn"];
+                        row.TenLoai = (string)reader["TenLoai"];
+                        row.URLHinhMonAn = (string)reader["URLHinhMonAn"];
+                        row.MoTa = (string)reader["MoTa"];
+                        row.Gia = (long)reader["Gia"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+
+        public static List<MonAn> XemMonAn_DirtRead_T2_fixed()
+        {
+            List<MonAn> result = new List<MonAn>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemMonAn_DirtRead_T2_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        MonAn row = new MonAn();
+                        row.MaMonAn = (int)reader["MaMonAn"];
+                        row.TenMonAn = (string)reader["TenMonAn"];
+                        row.TenLoai = (string)reader["TenLoai"];
+                        row.URLHinhMonAn = (string)reader["URLHinhMonAn"];
+                        row.MoTa = (string)reader["MoTa"];
+                        row.Gia = (long)reader["Gia"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+
+        public static void GiamSoLuongMonAn_LostUpdate(int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_LostUpdate.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void GiamSoLuongMonAn_LostUpdate_fixed(int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_LostUpdate_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ThemMotMonAn_Phantom_T2(int @MaLoai, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemMotMonAn_Phantom_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@@MaLoai", @MaLoai);
+                    cmd.Parameters.AddWithValue("@TenMonAn", TenMonAn);
+                    cmd.Parameters.AddWithValue("@URLHinhMonAn", URLHinhMonAn);
+                    cmd.Parameters.AddWithValue("@MoTa", MoTa);
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }
