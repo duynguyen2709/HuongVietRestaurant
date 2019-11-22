@@ -360,5 +360,53 @@ namespace HuongVietRestaurant.DAO
         }
 
         #endregion
+
+        public static void GiamSoLuongMonAn_UnrepeatableRead(int MaDonHang, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_UnrepeatableRead.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void GiamSoLuongMonAn_UnrepeatableRead_fixed(int MaDonHang, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_UnrepeatableRead_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void CapNhapSoLuongMonAn(int MaDonHang, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongMonAn.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }        
     }
 }
