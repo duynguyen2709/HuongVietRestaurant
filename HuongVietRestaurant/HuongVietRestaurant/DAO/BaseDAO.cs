@@ -361,7 +361,7 @@ namespace HuongVietRestaurant.DAO
 
         #endregion
 
-        public static void GiamSoLuongMonAn_UnrepeatableRead(int MaDonHang, int SoLuong)
+        public static void GiamSoLuongMonAn_UnrepeatableRead(int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -370,14 +370,14 @@ namespace HuongVietRestaurant.DAO
                 using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_UnrepeatableRead.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
                     cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public static void GiamSoLuongMonAn_UnrepeatableRead_fixed(int MaDonHang, int SoLuong)
+        public static void GiamSoLuongMonAn_UnrepeatableRead_fixed(int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -386,7 +386,7 @@ namespace HuongVietRestaurant.DAO
                 using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAn_UnrepeatableRead_fixed.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
                     cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
                     cmd.ExecuteNonQuery();
                 }

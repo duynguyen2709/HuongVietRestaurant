@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using HuongVietRestaurant.Utilities;
 using System.Windows.Controls;
+using HuongVietRestaurant.DAO;
+
 namespace HuongVietRestaurant
 {
     /// <summary>
@@ -24,7 +26,11 @@ namespace HuongVietRestaurant
             ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
             ViewUtil.loadView(ViewEnum.ThanhVien);
             ViewUtil.loadView(ViewEnum.DonHang);
-            
+        }      
+
+        private void btnReloadView_Food_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.MonAn);
         }
     }
 }
