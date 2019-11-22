@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HuongVietRestaurant"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="HuongVietRestaurant" Height="450" Width="800">
     <Grid>
         <TabControl Margin="0,0,129.6,0">
@@ -22,9 +23,9 @@
             </TabItem>
         </TabControl>
         <TextBox x:Name="textBox" BorderThickness="0" HorizontalAlignment="Left" Height="23" Margin="667,24,0,0" TextWrapping="Wrap" Text="Search key...." VerticalAlignment="Top" Width="124"/>
-        <Button x:Name="button" Content="Add" HorizontalAlignment="Left" Margin="685,158,0,0" VerticalAlignment="Top" Width="75" />
-        <Button x:Name="button_Copy" Content="Delete" HorizontalAlignment="Left" Margin="685,211,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button_Copy1" Content="Update" Margin="691,264,27.6,0" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="Add" Margin="680,158,28,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button_Copy" Content="Delete"  Margin="680,211,28,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button_Copy1" Content="Update" Margin="680,264,28,0" VerticalAlignment="Top"/>
         <Button x:Name="button_Copy2" Content="Lọc" HorizontalAlignment="Left" Margin="692,57,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>

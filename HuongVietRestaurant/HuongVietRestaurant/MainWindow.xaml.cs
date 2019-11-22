@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Windows;
-using HuongVietRestaurant.DAO;
-using HuongVietRestaurant.Entities;
+﻿using System.Windows;
+using HuongVietRestaurant.Utilities;
+using System.Windows.Controls;
+using System.Threading;
 
 namespace HuongVietRestaurant
 {
@@ -13,34 +10,22 @@ namespace HuongVietRestaurant
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static DataGrid dtgMonAn = null;
+        public static DataGrid dtgKhuyenMai = null;
+        public static DataGrid dtgThanhVien = null;
+        public static DataGrid dtgDonHang = null;
         public MainWindow()
         {
             InitializeComponent();
-            List<MonAn> result = BaseDAO.XemMonAn();
-            dataGrid.ItemsSource = ToDataTable<MonAn>(result).DefaultView;
-            List<DonHang> result1 = BaseDAO.XemDonHang();
-            dataGrid1.ItemsSource = ToDataTable<DonHang>(result1).DefaultView;
-            List<ChuongTrinhKhuyenMai> result2 = BaseDAO.XemChuongTrinhKhuyenMai();
-            dataGrid2.ItemsSource = ToDataTable<ChuongTrinhKhuyenMai>(result2).DefaultView;
-            List<ThanhVien> result3 = BaseDAO.XemThanhVien();
-            dataGrid_Member.ItemsSource = ToDataTable<ThanhVien>(result3).DefaultView;
+            dtgMonAn = dataGrid;
+            dtgKhuyenMai = dataGrid2;
+            dtgThanhVien = dataGrid_Member;
+            dtgDonHang = dataGrid1;
 
-        }
-        public static DataTable ToDataTable<T>(IList<T> data)
-        {
-            PropertyDescriptorCollection properties =
-                TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-            foreach (PropertyDescriptor prop in properties)
-                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-            foreach (T item in data)
-            {
-                DataRow row = table.NewRow();
-                foreach (PropertyDescriptor prop in properties)
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                table.Rows.Add(row);
-            }
-            return table;
-        }
+            ViewUtil.loadView(ViewEnum.MonAn);
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+            ViewUtil.loadView(ViewEnum.ThanhVien);
+            ViewUtil.loadView(ViewEnum.DonHang);          
+        }       
     }
 }

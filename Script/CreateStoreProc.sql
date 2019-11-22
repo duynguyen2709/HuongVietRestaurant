@@ -7,7 +7,7 @@ create procedure DangNhap
 	@TenDangNhap nvarchar(32),
 	@MatKhau nvarchar(32)
 as
-	select MaNhanVien AS MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi,  , '0' as DiemTichLuy
+	select MaNhanVien AS MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, QuyenHan, '0' as DiemTichLuy
 	from NhanVien
 	where TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau
 	UNION 
@@ -137,7 +137,6 @@ go
 create procedure DungVoucher_UnrepeatableRead
 	@MaKhuyenMai int
 as
-SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
@@ -186,7 +185,7 @@ FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
-WHERE MaMonAn = @MaMonAn
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
 Commit Transaction
@@ -276,7 +275,7 @@ FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
-WHERE MaMonAn = @MaMonAn
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
 Commit Transaction
@@ -335,7 +334,7 @@ create procedure LocThanhVienTheoDiem_Phantom
 	@Diem bigint
 as
 begin tran
-	select Count(*) from ThanhVien with (Serializable) 
+	select Count(*) from ThanhVien
 	where DiemTichLuy <= @Diem
 
 	WaitFor Delay '00:00:05'
@@ -351,7 +350,7 @@ create procedure LocVoucherTheoGiaTri_Phantom
 	@GiaTri bigint
 as
 begin tran
-	select Count(*) from ChuongTrinhKhuyenMai with (Serializable) 
+	select Count(*) from ChuongTrinhKhuyenMai
 	where GiaTri <= @GiaTri
 
 	WaitFor Delay '00:00:05'
@@ -407,6 +406,57 @@ begin tran
 
 	select * from ChuongTrinhKhuyenMai
 	where GiaTri <= @GiaTri
+commit
+go
+--TRANSACTION 2--
+drop procedure if exists ThemMotMonAn_Phantom_T2
+go
+create procedure ThemMotMonAn_Phantom_T2
+	@TenMonAn nvarchar(256),
+	@MaLoai int,
+	@URLHinhMonAn nvarchar(256),
+	@MoTa nvarchar(2048),
+	@Gia bigint,
+	@SoLuong int
+as
+begin tran
+	insert into MonAn(TenMonAn, MaLoai, URLHinhMonAn, MoTa, Gia, SoLuong)
+	values (@TenMonAn, @MaLoai, @URLHinhMonAn, @MoTa, @Gia, @SoLuong)
+commit tran
+go
+
+drop procedure if exists ThemThanhVien_Phantom_T2
+go
+create procedure ThemThanhVien_Phantom_T2
+	@MaChiNhanh int,
+	@HoTen nvarchar(256),
+	@CMND nvarchar(12),
+	@SoDienThoai nvarchar(10),
+	@Email nvarchar(256),
+	@NgaySinh date,
+	@DiaChi nvarchar(256), 
+	@DiemTichLuy bigint
+as
+begin tran
+	insert into ThanhVien (MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy)
+	values (@MaChiNhanh, @HoTen, @CMND, @SoDienThoai, @Email, @NgaySinh, @DiaChi, @DiemTichLuy)
+commit tran
+go
+
+drop procedure if exists ThemVoucher_Phantom_T2
+go
+create procedure ThemVoucher_Phantom_T2
+	@TenChuongTrinh nvarchar(512),
+	@MaLoai int,
+	@DoiTuongApDung int,	
+	@GiaTri bigint,
+	@NgayBatDat date,
+	@NgayKetThuc date,
+	@SoLuong int
+as
+begin tran
+	insert into ChuongTrinhKhuyenMai (TenChuongTrinh, MaLoai, DoiTuongApDung,  GiaTri, NgayBatDau, NgayKetThuc, SoLuong)
+	values (@TenChuongTrinh, @MaLoai, @DoiTuongApDung,  @GiaTri, @NgayBatDat, @NgayKetThuc, @SoLuong)
 commit
 go
 
@@ -561,7 +611,7 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn 
 
-WaitFor Delay '00:00:10'
+WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
@@ -583,7 +633,7 @@ SELECT @SoLuongHienTai = SoLuong
 FROM ChuongTrinhKhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
-
+WaitFor Delay '00:00:05'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
@@ -603,7 +653,7 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn 
 
-WaitFor Delay '00:00:10'
+WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
@@ -627,7 +677,7 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn 
 
-WaitFor Delay '00:00:10'
+WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
@@ -651,7 +701,7 @@ SELECT @SoLuongHienTai = SoLuong
 FROM ChuongTrinhKhuyenMai with (updlock) WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
-
+WaitFor Delay '00:00:05'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
@@ -662,6 +712,7 @@ go
 drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed
 go
 create procedure GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed
+	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
@@ -670,13 +721,13 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang with (updlock) WHERE MaMonAn = @MaMonAn 
+FROM ChiTietGioHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-WaitFor Delay '00:00:10'
+WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
-WHERE MaMonAn = @MaMonAn
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
 Commit Transaction
@@ -696,7 +747,7 @@ as
 begin tran
 	set tran isolation level repeatable read
 	select * from  MonAn  where MaMonAn = @MaMonAn 
-
+	WaitFor Delay '00:00:05'
 	update MonAn
 	set TenMonAn = @TenMonAn,
 	URLHinhMonAn = @URLHinhMonAn,
