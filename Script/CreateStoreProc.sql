@@ -37,7 +37,7 @@ drop procedure if exists XemMonAn
 go
 create procedure XemMonAn
 as
-select M.MaMonAn, M.TenMonAn, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia, M.SoLuong
+select M.MaMonAn, M.TenMonAn, L.MaLoai, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia, M.SoLuong
 from MonAn M left join LoaiMonAn L on M.MaLoai = L.MaLoai
 go
 
@@ -80,7 +80,7 @@ go
 create procedure XemMotMonAn
 	@MaMonAn int
 as
-	select M.MaMonAn, M.TenMonAn, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia
+	select M.MaMonAn, M.TenMonAn,L.MaLoai, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia
 	from MonAn M left join LoaiMonAn L on M.MaLoai = L.MaLoai
 	where M.MaMonAn = @MaMonAn
 go

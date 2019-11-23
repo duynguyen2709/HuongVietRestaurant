@@ -2,10 +2,7 @@
 using HuongVietRestaurant.Utilities;
 using System.Windows.Controls;
 using HuongVietRestaurant.DAO;
-using HuongVietRestaurant.Entities;
 using System;
-using System.Diagnostics;
-using HuongVietRestaurant.Entities;
 using System.Data;
 
 namespace HuongVietRestaurant
@@ -37,8 +34,22 @@ namespace HuongVietRestaurant
             ViewUtil.loadView(ViewEnum.MonAn);
         }
 
+        private void btnReloadView_Member_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ThanhVien);
+        }
 
-        private void BtnGiamSoLuongMonAnUnrepeatableRead_Click(object sender, RoutedEventArgs e)
+        private void btnReloadView_Voucher_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void btnReloadView_Basket_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.DonHang);
+        }
+		
+		private void BtnGiamSoLuongMonAnUnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
             int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
             int soLuong = Int32.Parse(txtSoLuong.Text);
@@ -56,8 +67,8 @@ namespace HuongVietRestaurant
         {
             DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
             BaseDAO.ThemMotMonAn_DirtyRead_T1(1, Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]), Convert.ToInt32(dataRow.Row[6]));
-
         }
+
 
         private void btnGiamSoLuongMonAnUnrepeatableRead_fixed_Click(object sender, RoutedEventArgs e)
         {

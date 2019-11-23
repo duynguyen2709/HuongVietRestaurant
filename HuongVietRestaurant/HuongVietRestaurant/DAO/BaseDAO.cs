@@ -206,6 +206,7 @@ namespace HuongVietRestaurant.DAO
                         MonAn row = new MonAn();
                         row.MaMonAn = (int)reader["MaMonAn"];
                         row.TenMonAn = (string)reader["TenMonAn"];
+                        row.MaLoai = (int)reader["MaLoai"];
                         row.TenLoai = (string)reader["TenLoai"];
                         row.URLHinhMonAn = (string)reader["URLHinhMonAn"];
                         row.MoTa = (string)reader["MoTa"];
@@ -239,6 +240,7 @@ namespace HuongVietRestaurant.DAO
                     {
                         result.MaMonAn = (int)reader["MaMonAn"];
                         result.TenMonAn = (string)reader["TenMonAn"];
+                        result.MaLoai = (int)reader["MaLoai"];
                         result.TenLoai = (string)reader["TenLoai"];
                         result.URLHinhMonAn = (string)reader["URLHinhMonAn"];
                         result.MoTa = (string)reader["MoTa"];
