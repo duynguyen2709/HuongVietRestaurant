@@ -14,6 +14,6 @@ namespace HuongVietRestaurant.Entities
         public long Gia { get; set; }
         public string URLHinhMonAn { get; set; }
         public string MoTa { get; set; }
-        
+        public int SoLuong { get; set; }
     }
 }
