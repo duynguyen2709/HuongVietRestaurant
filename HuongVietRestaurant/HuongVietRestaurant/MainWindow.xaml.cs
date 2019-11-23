@@ -54,10 +54,42 @@ namespace HuongVietRestaurant
 
         private void BtnThemMotMonAn_DirtyRead_Click(object sender, RoutedEventArgs e)
         {
-            //int soLuong = Int32.Parse(txtSoLuong.Text);
             DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
             BaseDAO.ThemMotMonAn_DirtyRead_T1(1, Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]), Convert.ToInt32(dataRow.Row[6]));
 
+        }
+
+        private void btnGiamSoLuongMonAnUnrepeatableRead_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong.Text);
+            BaseDAO.GiamSoLuongMonAn_UnrepeatableRead_fixed(maMonAn, soLuong);
+        }
+
+        private void BtnCapNhapMonAn_Deadlock_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
+            BaseDAO.CapNhapMonAn_Deadlock(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]));
+        }
+
+        private void BtnCapNhapMonAn_Deadlock_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
+            BaseDAO.CapNhapMonAn_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]));
+        }
+
+        private void BtnXemMonAn_DirtRead_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.MonAnDirtyRead);
+        }
+
+        private void BtnXemMonAn_DirtRead_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.MonAn);
+        }
+
+        private void BtnLocMonAnTheoGia_Phantom_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

@@ -32,6 +32,10 @@ namespace HuongVietRestaurant.Utilities
                     List<DonHang> listDonHang = BaseDAO.XemDonHang();
                     MainWindow.dtgDonHang.ItemsSource = ToDataTable<DonHang>(listDonHang).DefaultView;
                     break;
+                case ViewEnum.MonAnDirtyRead:
+                    List<MonAn> listMonAn = BaseDAO.XemMonAn_DirtRead_T2();
+                    MainWindow.dtgMonAn.ItemsSource = ToDataTable<MonAn>(listMonAn).DefaultView;
+                    break;
             }
             
         }
@@ -73,6 +77,7 @@ namespace HuongVietRestaurant.Utilities
         MonAn,
         ChuongTrinhKhuyenMai,
         DonHang,
-        ThanhVien
+        ThanhVien,
+        MonAnDirtyRead
     }
 }

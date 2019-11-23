@@ -11,7 +11,7 @@
         <TabControl Margin="0,0,9.6,0">
             <TabItem Header="Food">
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid x:Name="dataGrid" Width="800" SelectionChanged="dataGrid_SelectionChanged" />
+                    <DataGrid x:Name="dataGrid" Width="800" />
                     <StackPanel Orientation="Vertical" Margin="20,0,0,0" Width="300">
                         <Button x:Name="btnReloadView_Food" VerticalAlignment="Top" Width="135" Height="35" Click="btnReloadView_Food_Click">
                             <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="16">RELOAD VIEW</TextBlock>
@@ -33,13 +33,12 @@
                             UnrepeatableRead fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
-                            <Button x:Name="btnCapNhapMonAn_Deadlock" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnCapNhapMonAn_Deadlock" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnCapNhapMonAn_Deadlock_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">CapNhapMonAn
                                 Deadlock</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhapMonAn_Deadlock_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Width="135">CapNhapMonAn
-                                Deadlock_fixed</TextBlock>
+                            <Button x:Name="btnCapNhapMonAn_Deadlock_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnCapNhapMonAn_Deadlock_fixed_Click">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Width="135"><Run Text="CapNhapMonAn Deadlock_fixed"/></TextBlock>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
@@ -47,13 +46,13 @@
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">ThemMotMonAn
                                     DirtyRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnXemMonAn_DirtRead" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnXemMonAn_DirtRead" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnXemMonAn_DirtRead_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">XemMonAn
                                     DirtyRead</TextBlock>
                             </Button>
                         </StackPanel>
                         <Button x:Name="btnXemMonAn_DirtRead_fixed" HorizontalAlignment="Right" 
-                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,5,20,0">
+                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,5,20,0" Click="BtnXemMonAn_DirtRead_fixed_Click">
                             <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">XemMonAn
                                     DirtyRead fixed</TextBlock>
                         </Button>
@@ -73,7 +72,7 @@
                                  TextWrapping="Wrap" Text="Giá...." VerticalAlignment="Top" Width="125"/>
                         
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="btnLocMonAnTheoGia_Phantom_Click">
+                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnLocMonAnTheoGia_Phantom_Click" >
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">LocMonAnTheoGia
                                     Phantom</TextBlock>
                             </Button>
