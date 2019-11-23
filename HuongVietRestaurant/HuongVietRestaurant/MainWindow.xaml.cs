@@ -2,6 +2,8 @@
 using HuongVietRestaurant.Utilities;
 using System.Windows.Controls;
 using HuongVietRestaurant.DAO;
+using HuongVietRestaurant.Entities;
+using System;
 using System.Diagnostics;
 using HuongVietRestaurant.Entities;
 using System.Data;
@@ -17,9 +19,6 @@ namespace HuongVietRestaurant
         public static DataGrid dtgKhuyenMai = null;
         public static DataGrid dtgThanhVien = null;
         public static DataGrid dtgDonHang = null;
-
-        public static MonAn selectedMonAn = null;
-        public static int SoLuong { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -27,15 +26,11 @@ namespace HuongVietRestaurant
             dtgKhuyenMai = dataGrid2;
             dtgThanhVien = dataGrid_Member;
             dtgDonHang = dataGrid1;
-            selectedMonAn = new MonAn();
-            SoLuong = 0;
-
-
             ViewUtil.loadView(ViewEnum.MonAn);
             ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
             ViewUtil.loadView(ViewEnum.ThanhVien);
             ViewUtil.loadView(ViewEnum.DonHang);
-        }      
+        }
 
         private void btnReloadView_Food_Click(object sender, RoutedEventArgs e)
         {
@@ -88,35 +83,25 @@ namespace HuongVietRestaurant
             //SoLuong = System.Convert.ToInt32(txtSoLuong.Text);
             ViewUtil.GiamSoLuongMonAnUnrepeatableRead(selectedMonAn.MaMonAn, SoLuong);
         }
-
-        private void btnLocMonAnTheoGia_Phantom_Click(object sender, RoutedEventArgs e)
+		
+		private void BtnGiamSoLuongMonAnUnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
-
+            int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong.Text);
+            BaseDAO.GiamSoLuongMonAn_UnrepeatableRead(maMonAn, soLuong);
         }
 
-        private void btnCapNhatSoLuongMonAn_Click(object sender, RoutedEventArgs e)
+        private void BtnCapNhatSoLuongMonAn_Click(object sender, RoutedEventArgs e)
         {
-            //SoLuong = System.Convert.ToInt32(txtSoLuong.Text);
-            Trace.WriteLine(SoLuong);
-            ViewUtil.CapNhapSoLuongMonAn(selectedMonAn.MaMonAn, SoLuong);
+            int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong.Text);
+            BaseDAO.CapNhapSoLuongMonAn(maMonAn, soLuong);
         }
 
-        private void btnGiamSoLuongMonAnUnrepeatableRead_fixed_Click(object sender, RoutedEventArgs e)
+        private void BtnThemMotMonAn_DirtyRead_Click(object sender, RoutedEventArgs e)
         {
-            //SoLuong = System.Convert.ToInt32(txtSoLuong.Text);
-            ViewUtil.GiamSoLuongMonAnUnrepeatableRead_fixed(selectedMonAn.MaMonAn, SoLuong);
+            //int soLuong = Int32.Parse(txtSoLuong.Text);
+            DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
+            BaseDAO.ThemMotMonAn_DirtyRead_T1(1, Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]), Convert.ToInt32(dataRow.Row[6]));
         }
-
-        private void onTextChanged(object sender, RoutedEventArgs e)
-        {
-            //Trace.WriteLine("123");
-            try { 
-            SoLuong = System.Convert.ToInt32(txtSoLuong.Text);
-            }
-            catch
-            {
-                return;
-            }
-        }
-    }
 }
