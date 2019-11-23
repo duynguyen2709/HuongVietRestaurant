@@ -11,61 +11,59 @@
         <TabControl Margin="0,0,9.6,0">
             <TabItem Header="Food">
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid x:Name="dataGrid" Width="800"/>
+                    <DataGrid x:Name="dataGrid" Width="800" SelectionChanged="dataGrid_SelectionChanged" />
                     <StackPanel Orientation="Vertical" Margin="20,0,0,0" Width="300">
                         <Button x:Name="btnReloadView_Food" VerticalAlignment="Top" Width="135" Height="35" Click="btnReloadView_Food_Click">
                             <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="16">RELOAD VIEW</TextBlock>
                         </Button>
                         <TextBox x:Name="txtSoLuong" BorderThickness="1" Height="25" HorizontalAlignment="Left"  
-                                 Margin="5,30,0,0"
-                                 TextWrapping="Wrap" Text="Số Lượng..." VerticalAlignment="Center" Width="125"/>
+                                 Margin="5,30,0,0" TextWrapping="Wrap" Text="Số Lượng..." VerticalAlignment="Center" Width="125"/>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead" VerticalAlignment="Top" Width="135" Height="35" Click="BtnGiamSoLuongMonAnUnrepeatableRead_Click">
-                                <TextBlock TextWrapping="Wrap">GiamSoLuongMonAn
-                            UnrepeatableRead</TextBlock>
+                            <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="135" Height="35" Click="BtnGiamSoLuongMonAnUnrepeatableRead_Click" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center">GiamSoLuongMonAn UnrepeatableRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhatSoLuongMonAn" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnCapNhatSoLuongMonAn_Click">
-                                <TextBlock TextWrapping="Wrap" Width="135">CapNhatSoLuongMonAn</TextBlock>
+                            <Button x:Name="btnCapNhatSoLuongMonAn" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="135" Height="35" Margin="5,0,0,0" Click="BtnCapNhatSoLuongMonAn_Click">
+                                <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center" HorizontalAlignment="Center">CapNhatSoLuongMonAn</TextBlock>
                             </Button>
                         </StackPanel>
                         <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead_fixed" 
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0">
-                            <TextBlock TextWrapping="Wrap">GiamSoLuongMonAn
+                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0" Click="btnGiamSoLuongMonAnUnrepeatableRead_fixed_Click">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center">GiamSoLuongMonAn
                             UnrepeatableRead fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
                             <Button x:Name="btnCapNhapMonAn_Deadlock" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
-                                <TextBlock TextWrapping="Wrap">CapNhapMonAn
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">CapNhapMonAn
                                 Deadlock</TextBlock>
                             </Button>
                             <Button x:Name="btnCapNhapMonAn_Deadlock_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Width="135">CapNhapMonAn
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Width="135">CapNhapMonAn
                                 Deadlock_fixed</TextBlock>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
                             <Button x:Name="btnThemMotMonAn_DirtyRead" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnThemMotMonAn_DirtyRead_Click">
-                                <TextBlock TextWrapping="Wrap">ThemMotMonAn
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">ThemMotMonAn
                                     DirtyRead</TextBlock>
                             </Button>
                             <Button x:Name="btnXemMonAn_DirtRead" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Width="135">XemMonAn
+                                <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">XemMonAn
                                     DirtyRead</TextBlock>
                             </Button>
                         </StackPanel>
                         <Button x:Name="btnXemMonAn_DirtRead_fixed" HorizontalAlignment="Right" 
                                 VerticalAlignment="Top" Width="135" Height="35" Margin="0,5,20,0">
-                            <TextBlock TextWrapping="Wrap" Width="135">XemMonAn
+                            <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">XemMonAn
                                     DirtyRead fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
                             <Button x:Name="btnGiamSoLuongMonAn_LostUpdate" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
-                                <TextBlock TextWrapping="Wrap">GiamSoLuongMonAn
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">GiamSoLuongMonAn
                                 LostUpdate</TextBlock>
                             </Button>
                             <Button x:Name="btnGiamSoLuongMonAn_LostUpdate_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Width="135">GiamSoLuongMonAn
+                                <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">GiamSoLuongMonAn
                                 LostUpdate_fixed</TextBlock>
                             </Button>
                         </StackPanel>
@@ -75,18 +73,18 @@
                                  TextWrapping="Wrap" Text="Giá...." VerticalAlignment="Top" Width="125"/>
                         
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
-                                <TextBlock TextWrapping="Wrap">LocMonAnTheoGia
+                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="btnLocMonAnTheoGia_Phantom_Click">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">LocMonAnTheoGia
                                     Phantom</TextBlock>
                             </Button>
                             <Button x:Name="btnThemMotMonAn_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Width="135">ThemMotMonAn
+                                <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">ThemMotMonAn
                                     Phantom</TextBlock>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <Button x:Name="btnLocMonAnTheoGia_Phantom_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
-                                <TextBlock TextWrapping="Wrap">LocMonAnTheoGia
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center">LocMonAnTheoGia
                                     Phantom fixed</TextBlock>
                             </Button>
                         </StackPanel>
