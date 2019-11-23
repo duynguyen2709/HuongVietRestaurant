@@ -42,6 +42,21 @@ namespace HuongVietRestaurant
             ViewUtil.loadView(ViewEnum.MonAn);
         }
 
+        private void btnReloadView_Member_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ThanhVien);
+        }
+
+        private void btnReloadView_Voucher_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void btnReloadView_Basket_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.DonHang);
+        }
+
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Trace.WriteLine("ID: " + dataGrid.GetValue();
