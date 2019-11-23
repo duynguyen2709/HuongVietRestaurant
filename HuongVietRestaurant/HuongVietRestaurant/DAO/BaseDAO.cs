@@ -210,6 +210,7 @@ namespace HuongVietRestaurant.DAO
                         row.URLHinhMonAn = (string)reader["URLHinhMonAn"];
                         row.MoTa = (string)reader["MoTa"];
                         row.Gia = (long)reader["Gia"];
+                        row.SoLuong = (int)reader["SoLuong"];
                         result.Add(row);
                     }
                     reader.Close();
@@ -242,6 +243,7 @@ namespace HuongVietRestaurant.DAO
                         result.URLHinhMonAn = (string)reader["URLHinhMonAn"];
                         result.MoTa = (string)reader["MoTa"];
                         result.Gia = (long)reader["Gia"];
+                        result.SoLuong = (int)reader["SoLuong"];
                         break;
                     }
                     reader.Close();

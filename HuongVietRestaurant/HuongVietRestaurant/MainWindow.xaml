@@ -11,26 +11,26 @@
         <TabControl Margin="0,0,9.6,0">
             <TabItem Header="Food">
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid x:Name="dataGrid" Width="800"/>
+                    <DataGrid x:Name="dataGrid" Width="800" SelectionChanged="dataGrid_SelectionChanged" />
                     <StackPanel Orientation="Vertical" Margin="20,0,0,0" Width="300">
                         <Button x:Name="btnReloadView_Food" VerticalAlignment="Top" Width="135" Height="35" Click="btnReloadView_Food_Click">
                             <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="16">RELOAD VIEW</TextBlock>
                         </Button>
                         <TextBox x:Name="txtSoLuong" BorderThickness="1" Height="25" HorizontalAlignment="Left"  
                                  Margin="5,30,0,0"
-                                 TextWrapping="Wrap" Text="Số Lượng..." VerticalAlignment="Top" Width="125"/>
+                                 TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Text="Số lượng ..." TextChanged="onTextChanged" />
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead" VerticalAlignment="Top" Width="135" Height="35">
+                            <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead" VerticalAlignment="Top" Width="135" Height="35" Click="btnGiamSoLuongMonAnUnrepeatableRead_Click">
                                 <TextBlock TextWrapping="Wrap">GiamSoLuongMonAn
                             UnrepeatableRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhatSoLuongMonAn" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnCapNhatSoLuongMonAn" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="btnCapNhatSoLuongMonAn_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">CapNhatSoLuongMonAn</TextBlock>
                             </Button>
                         </StackPanel>
                         <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead_fixed" 
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0">
+                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0" Click="btnGiamSoLuongMonAnUnrepeatableRead_fixed_Click">
                             <TextBlock TextWrapping="Wrap">GiamSoLuongMonAn
                             UnrepeatableRead fixed</TextBlock>
                         </Button>
@@ -75,7 +75,7 @@
                                  TextWrapping="Wrap" Text="Giá...." VerticalAlignment="Top" Width="125"/>
                         
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnLocMonAnTheoGia_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="btnLocMonAnTheoGia_Phantom_Click">
                                 <TextBlock TextWrapping="Wrap">LocMonAnTheoGia
                                     Phantom</TextBlock>
                             </Button>

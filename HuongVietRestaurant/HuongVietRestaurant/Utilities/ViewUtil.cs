@@ -51,6 +51,21 @@ namespace HuongVietRestaurant.Utilities
             }
             return table;
         }
+
+        public static void GiamSoLuongMonAnUnrepeatableRead(int MaMonAn, int SoLuong)
+        {
+            BaseDAO.GiamSoLuongMonAn_UnrepeatableRead(MaMonAn, SoLuong);
+        }
+
+        public static void GiamSoLuongMonAnUnrepeatableRead_fixed(int MaMonAn, int SoLuong)
+        {
+            BaseDAO.GiamSoLuongMonAn_UnrepeatableRead_fixed(MaMonAn, SoLuong);
+        }
+
+        public static void CapNhapSoLuongMonAn(int MaMonAn, int SoLuong)
+        {
+            BaseDAO.CapNhapSoLuongMonAn(MaMonAn, SoLuong);
+        }
     }
 
     public enum ViewEnum
