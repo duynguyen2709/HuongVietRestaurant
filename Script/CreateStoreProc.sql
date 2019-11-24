@@ -644,6 +644,7 @@ go
 drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate
 go
 create procedure GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate
+	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
@@ -651,13 +652,13 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn 
+FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
-WHERE MaMonAn = @MaMonAn
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
 Commit Transaction
