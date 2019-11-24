@@ -45,7 +45,7 @@ drop procedure if exists XemDonHang
 go
 create procedure XemDonHang
 as
-select D.MaDonHang, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
+select D.MaDonHang,M.MaMonAn, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
 from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
 left join DonHang D on CT.MaDonHang = D.MaDonHang
 left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
@@ -90,7 +90,7 @@ go
 create procedure XemMotDonHang
 	@MaDonHang int
 as
-select D.MaDonHang, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
+select D.MaDonHang,M.MaMonAn, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
 from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
 left join DonHang D on CT.MaDonHang = D.MaDonHang
 left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh

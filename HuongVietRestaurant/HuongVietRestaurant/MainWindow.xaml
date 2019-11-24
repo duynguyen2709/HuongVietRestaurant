@@ -113,6 +113,7 @@
                             <DataTemplate>
                                 <DataGrid  ItemsSource="{Binding ChiTiet}" AutoGenerateColumns="False">
                                     <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Mã món ăn" Binding="{Binding MaMonAn}"/>
                                         <DataGridTextColumn Header="Món ăn" Binding="{Binding TenMonAn}"/>
                                         <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}"/>
                                         <DataGridTextColumn Header="Giá" Binding="{Binding Gia}"/>

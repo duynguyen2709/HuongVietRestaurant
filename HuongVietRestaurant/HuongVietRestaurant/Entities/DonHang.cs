@@ -35,12 +35,14 @@ namespace HuongVietRestaurant.Entities
 
         public class ChiTietDonHang
         {
+            public int MaMonAn { get; set; }
             public string TenMonAn { get; set; }
             public int SoLuong { get; set; }
             public long Gia { get; set; }
 
-            public ChiTietDonHang(string _ten, int _soluong, long _gia)
+            public ChiTietDonHang(int _ma, string _ten, int _soluong, long _gia)
             {
+                this.MaMonAn = _ma;
                 this.TenMonAn = _ten;
                 this.SoLuong = _soluong;
                 this.Gia = _gia;
