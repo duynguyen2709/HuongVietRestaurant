@@ -70,6 +70,7 @@ namespace HuongVietRestaurant.DAO
                     {
                         ThanhVien row = new ThanhVien();
                         row.MaThanhVien = (int)reader["MaThanhVien"];
+                        row.MaChiNhanh = (int)reader["MaChiNhanh"];
                         row.HoTen = (string)reader["HoTen"];
                         row.CMND = (string)reader["CMND"];
                         row.SoDienThoai = (string)reader["SoDienThoai"];
@@ -105,6 +106,7 @@ namespace HuongVietRestaurant.DAO
                     while (reader.Read())
                     {
                         result.MaThanhVien = MaThanhVien;
+                        result.MaChiNhanh = (int)reader["MaChiNhanh"];
                         result.HoTen = (string)reader["HoTen"];
                         result.CMND = (string)reader["CMND"];
                         result.SoDienThoai = (string)reader["SoDienThoai"];
@@ -724,7 +726,7 @@ namespace HuongVietRestaurant.DAO
         }
         #endregion
         #region MEMBER_TAB
-        public static void CapNhapThanhVien_Deadlock(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        public static void CapNhapThanhVien_Deadlock(int MaThanhVien, int MaChiNhanh, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -734,6 +736,7 @@ namespace HuongVietRestaurant.DAO
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+                    cmd.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
                     cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
                     cmd.Parameters.AddWithValue("@CMND", CMND);
                     cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
@@ -745,16 +748,17 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void CapNhapThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        public static void CapNhapThanhVien_Deadlock_fixed(int MaThanhVien, int MaChiNhanh, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock_fixed.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+                    cmd.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
                     cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
                     cmd.Parameters.AddWithValue("@CMND", CMND);
                     cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
@@ -766,27 +770,27 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void ThemThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
-        {
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = connectionString;
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
-                    cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
-                    cmd.Parameters.AddWithValue("@CMND", CMND);
-                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
-                    cmd.Parameters.AddWithValue("@Email", Email);
-                    cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
-                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
-                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        //public static void ThemThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        //{
+        //    using (SqlConnection conn = new SqlConnection())
+        //    {
+        //        conn.ConnectionString = connectionString;
+        //        conn.Open();
+        //        using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+        //            cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
+        //            cmd.Parameters.AddWithValue("@CMND", CMND);
+        //            cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+        //            cmd.Parameters.AddWithValue("@Email", Email);
+        //            cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
+        //            cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+        //            cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //}
         #endregion
 
     }

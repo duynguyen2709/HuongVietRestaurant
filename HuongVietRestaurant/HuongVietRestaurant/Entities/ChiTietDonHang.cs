@@ -15,7 +15,10 @@ namespace HuongVietRestaurant.Entities
         public string TenMonAn { get; set; }
         public long Gia { get; set; }
         public int MaMonAn {
-            get => _maMonAn;
+            get
+            {
+                return _maMonAn;
+            }
             set {
                 _maMonAn = value;
                 NotifyPropertyChanged();
@@ -23,7 +26,10 @@ namespace HuongVietRestaurant.Entities
         }
         public int SoLuong
         {
-            get => _soLuong;
+            get
+            {
+                return _soLuong;
+            }
             set
             {
                 _soLuong = value;

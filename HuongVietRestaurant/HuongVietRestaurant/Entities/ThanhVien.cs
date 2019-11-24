@@ -8,7 +8,7 @@ namespace HuongVietRestaurant.Entities
 {
     public class ThanhVien
     {
-        public int MaThanhVien { get; set; }
+        public int MaThanhVien { get; set; }       
         public string HoTen { get; set; }
         public long DiemTichLuy { get; set; }
         public string CMND { get; set; }
@@ -17,6 +17,7 @@ namespace HuongVietRestaurant.Entities
         public String NgaySinh { get; set; }
         public String DiaChi { get; set; }
         public int QuyenHan { get; set; }
-       
+        public int MaChiNhanh { get; set; }
+
     }
 }

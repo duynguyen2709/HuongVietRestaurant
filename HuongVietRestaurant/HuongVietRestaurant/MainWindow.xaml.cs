@@ -22,7 +22,10 @@ namespace HuongVietRestaurant
         public static ChiTietDonHang _selectedItem = null;
         public static ChiTietDonHang selectedChiTietDonHang
         {
-            get => _selectedItem;
+            get
+            {
+                return _selectedItem;
+            }
             set
             {
                 _selectedItem = value;
@@ -191,13 +194,13 @@ namespace HuongVietRestaurant
         private void BtnCapNhapThanhVien_Deadlock_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
-            BaseDAO.CapNhapThanhVien_Deadlock(Convert.ToInt32(dataRow.Row[0]),Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+            BaseDAO.CapNhapThanhVien_Deadlock(Convert.ToInt32(dataRow.Row[0]), Convert.ToInt32(dataRow.Row[9]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
         }
 
         private void BtnCapNhapThanhVien_Deadlock_fixed_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
-            BaseDAO.CapNhapThanhVien_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+            BaseDAO.CapNhapThanhVien_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToInt32(dataRow.Row[9]),  Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
         }
     }
 }

@@ -21,7 +21,7 @@ drop procedure if exists XemThanhVien
 go
 create procedure XemThanhVien
 as
-select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+select MaThanhVien, MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
 from ThanhVien
 go
 
@@ -60,7 +60,7 @@ go
 create procedure XemMotThanhVien
 	@MaThanhVien int
 as
-	select HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+	select MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
 	from ThanhVien
 	where MaThanhVien = @MaThanhVien
 go
@@ -546,7 +546,7 @@ create procedure XemThanhVien_DirtRead_T2
 as
 begin tran
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+select MaThanhVien, MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
 from ThanhVien
 commit tran
 go
@@ -581,7 +581,7 @@ create procedure XemThanhVien_DirtRead_T2_fixed
 as
 begin tran
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED
-select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+select MaThanhVien, MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
 from ThanhVien
 commit tran
 go
@@ -762,6 +762,7 @@ drop procedure if exists CapNhapThanhVien_Deadlock
 go
 create procedure CapNhapThanhVien_Deadlock
 	@MaThanhVien int,
+	@MaChiNhanh int,
 	@TenThanhVien nvarchar(256),
 	@CMND nvarchar(12),
 	@SoDienThoai nvarchar(10),
@@ -777,7 +778,8 @@ begin tran
 	WaitFor Delay '00:00:05'
 
 	update ThanhVien
-	set HoTen = @TenThanhVien,
+	set MaChiNhanh = @MaChiNhanh,
+	HoTen = @TenThanhVien,
 	CMND = @CMND,
 	SoDienThoai = @SoDienThoai,
 	Email = @Email,
@@ -835,6 +837,7 @@ drop procedure if exists CapNhapThanhVien_Deadlock_fixed
 go
 create procedure CapNhapThanhVien_Deadlock_fixed
 	@MaThanhVien int,
+	@MaChiNhanh int,
 	@TenThanhVien nvarchar(256),
 	@CMND nvarchar(12),
 	@SoDienThoai nvarchar(10),
@@ -851,6 +854,7 @@ begin tran
 
 	update ThanhVien
 	set HoTen = @TenThanhVien,
+	MaChiNhanh = @MaChiNhanh,
 	CMND = @CMND,
 	SoDienThoai = @SoDienThoai,
 	Email = @Email,
