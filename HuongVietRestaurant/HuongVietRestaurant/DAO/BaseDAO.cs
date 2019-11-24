@@ -585,5 +585,53 @@ namespace HuongVietRestaurant.DAO
             }
         }
 
+        public static List<DataTable> LocMonAnTheoGia_Phantom(double Gia) 
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocMonAnTheoGia_Phantom.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach(DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public static List<DataTable> LocMonAnTheoGia_Phantom_fixed(double Gia)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocMonAnTheoGia_Phantom_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Gia", Gia);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+
     }
 }

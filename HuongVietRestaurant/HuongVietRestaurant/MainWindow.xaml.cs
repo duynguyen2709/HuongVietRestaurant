@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using HuongVietRestaurant.DAO;
 using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace HuongVietRestaurant
 {
@@ -32,6 +33,8 @@ namespace HuongVietRestaurant
         private void btnReloadView_Food_Click(object sender, RoutedEventArgs e)
         {
             ViewUtil.loadView(ViewEnum.MonAn);
+            txtResult.Text = "Số lượng kết quả: ";
+            textbox_Gia.Text= "Giá...";
         }
 
         private void btnReloadView_Member_Click(object sender, RoutedEventArgs e)
@@ -66,7 +69,7 @@ namespace HuongVietRestaurant
         private void BtnThemMotMonAn_DirtyRead_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
-            BaseDAO.ThemMotMonAn_DirtyRead_T1(1, Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]), Convert.ToInt32(dataRow.Row[6]));
+            BaseDAO.ThemMotMonAn_DirtyRead_T1(Convert.ToInt32(dataRow.Row[2]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[5]), Convert.ToInt32(dataRow.Row[4]));
         }
 
 
@@ -101,6 +104,42 @@ namespace HuongVietRestaurant
 
         private void BtnLocMonAnTheoGia_Phantom_Click(object sender, RoutedEventArgs e)
         {
+            if (textbox_Gia.Text == "") {
+                ViewUtil.loadView(ViewEnum.MonAn);
+                txtResult.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocMonAnTheoGia_Phantom(Convert.ToDouble(textbox_Gia.Text));
+                txtResult.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgMonAn.ItemsSource = result[1].DefaultView;
+            }
+        }
+
+        private void BtnThemMotMonAn_Phantom_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
+            BaseDAO.ThemMotMonAn_Phantom_T2(Convert.ToInt32(dataRow.Row[2]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[5]), Convert.ToInt32(dataRow.Row[4]));
+        }
+
+        private void BtnLocMonAnTheoGia_Phantom_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            if (textbox_Gia.Text == "")
+            {
+                ViewUtil.loadView(ViewEnum.MonAn);
+                txtResult.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocMonAnTheoGia_Phantom_fixed(Convert.ToDouble(textbox_Gia.Text));
+                txtResult.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgMonAn.ItemsSource = result[1].DefaultView;
+            }
+        }
+
+        private void BtnGiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
         }
     }
 }
