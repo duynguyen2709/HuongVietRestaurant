@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\ChiTietDonHang.cs" />
     <Compile Include="Utilities\StoreProcEnum.cs" />
     <Compile Include="Utilities\ViewUtil.cs" />
     <Page Include="MainWindow.xaml">

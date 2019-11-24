@@ -292,8 +292,9 @@ namespace HuongVietRestaurant.DAO
                             var TenMonAn = (string)reader["TenMonAn"];
                             var SoLuong = (int)reader["SoLuong"];
                             var Gia = (long)reader["Gia"];
-
-                            row.ChiTiet.Add(new DonHang.ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
+                            ChiTietDonHang donHang = new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia);
+                            donHang.PropertyChanged += MainWindow.PropertyChanged;
+                            row.ChiTiet.Add(donHang);                 
                             result.Add(row);
                         } else
                         {
@@ -301,7 +302,9 @@ namespace HuongVietRestaurant.DAO
                             var TenMonAn = (string)reader["TenMonAn"];
                             var SoLuong = (int)reader["SoLuong"];
                             var Gia = (long)reader["Gia"];
-                            result[result.Count - 1].ChiTiet.Add(new DonHang.ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
+                            ChiTietDonHang donHang = new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia);
+                            donHang.PropertyChanged += MainWindow.PropertyChanged;                   
+                            result[result.Count - 1].ChiTiet.Add(donHang);
                         }
                     }
                     reader.Close();
@@ -350,7 +353,7 @@ namespace HuongVietRestaurant.DAO
                             var SoLuong = (int)reader["SoLuong"];
                             var Gia = (long)reader["Gia"];
 
-                            result.ChiTiet.Add(new DonHang.ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
+                            result.ChiTiet.Add(new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
                         }
                         else
                         {
@@ -358,7 +361,7 @@ namespace HuongVietRestaurant.DAO
                             var TenMonAn = (string)reader["TenMonAn"];
                             var SoLuong = (int)reader["SoLuong"];
                             var Gia = (long)reader["Gia"];
-                            result.ChiTiet.Add(new DonHang.ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
+                            result.ChiTiet.Add(new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia));
                         }
                     }
                     reader.Close();

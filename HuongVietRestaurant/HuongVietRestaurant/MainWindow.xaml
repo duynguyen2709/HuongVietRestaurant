@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:models="clr-namespace:HuongVietRestaurant.Entities"
         ResizeMode="NoResize"
         Title="HuongVietRestaurant" Height="650" Width="1200">
     <Grid>
@@ -110,8 +111,8 @@
                             <DataGridTextColumn Header="Tên kênh đặt hàng" Binding="{Binding TenKenhDatHang}" />
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <DataGrid  ItemsSource="{Binding ChiTiet}" AutoGenerateColumns="False">
+                            <DataTemplate DataType="{x:Type models:ChiTietDonHang}">
+                                <DataGrid x:Name="gridChild"  ItemsSource="{Binding ChiTiet}" SelectedItem="{Binding Path=selectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" AutoGenerateColumns="False" >
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Mã món ăn" Binding="{Binding MaMonAn}"/>
                                         <DataGridTextColumn Header="Món ăn" Binding="{Binding TenMonAn}"/>
@@ -135,7 +136,7 @@
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">GiamSoLuongMonAn TrongChiTietGioHang
                                     UnrepeatableRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhapSoLuongVoucher1" VerticalAlignment="Top" Width="135" Height="50" Margin="5,0,0,0">
+                            <Button x:Name="btnCapNhatSoLuongMonAnTrongChiTietDonHang" VerticalAlignment="Top" Width="135" Height="50" Margin="5,0,0,0" Click="BtnCapNhatSoLuongMonAnTrongChiTietDonHang_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">CapNhapSoLuongMon AnTrongChiTietGioHang</TextBlock>
                             </Button>
                         </StackPanel>

@@ -5,6 +5,8 @@ using HuongVietRestaurant.DAO;
 using System;
 using System.Data;
 using System.Collections.Generic;
+using HuongVietRestaurant.Entities;
+using System.ComponentModel;
 
 namespace HuongVietRestaurant
 {
@@ -17,6 +19,19 @@ namespace HuongVietRestaurant
         public static DataGrid dtgKhuyenMai = null;
         public static DataGrid dtgThanhVien = null;
         public static DataGrid dtgDonHang = null;
+        public static ChiTietDonHang _selectedItem = null;
+        public static ChiTietDonHang selectedChiTietDonHang
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+            }
+        }
+        public static void PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            selectedChiTietDonHang = sender as ChiTietDonHang;
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -139,7 +154,12 @@ namespace HuongVietRestaurant
 
         private void BtnGiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
-            DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
+            BaseDAO.GiamSoLuongMonAn_UnrepeatableRead(selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+        }
+
+        private void BtnCapNhatSoLuongMonAnTrongChiTietDonHang_Click(object sender, RoutedEventArgs e)
+        {
+            BaseDAO.CapNhapSoLuongMonAn(selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
     }
 }

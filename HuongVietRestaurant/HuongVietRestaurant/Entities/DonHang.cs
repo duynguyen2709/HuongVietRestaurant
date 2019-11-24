@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HuongVietRestaurant.Entities
 {
@@ -32,21 +28,5 @@ namespace HuongVietRestaurant.Entities
         }
 
         private List<ChiTietDonHang> chiTiet = new List<ChiTietDonHang>();
-
-        public class ChiTietDonHang
-        {
-            public int MaMonAn { get; set; }
-            public string TenMonAn { get; set; }
-            public int SoLuong { get; set; }
-            public long Gia { get; set; }
-
-            public ChiTietDonHang(int _ma, string _ten, int _soluong, long _gia)
-            {
-                this.MaMonAn = _ma;
-                this.TenMonAn = _ten;
-                this.SoLuong = _soluong;
-                this.Gia = _gia;
-            }
-        }
     }
 }
