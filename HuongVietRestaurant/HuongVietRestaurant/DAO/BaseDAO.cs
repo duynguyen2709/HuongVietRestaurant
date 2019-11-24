@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -371,7 +372,7 @@ namespace HuongVietRestaurant.DAO
         }
 
         #endregion
-
+        #region FOODTAB
         public static void GiamSoLuongMonAn_UnrepeatableRead(int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
@@ -639,6 +640,154 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
+        #endregion
+        #region BASKET_TAB
+        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(int MaDonHang,int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed(int MaDonHang, int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate(int MaDonHang, int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed(int MaDonHang, int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void CapNhatSoLuongMonAnTrongChiTietGioHang(int MaDonHang, int MaMonAn, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongMonAnTrongChiTietGioHang.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
+                    cmd.Parameters.AddWithValue("@MaMonAn", MaMonAn);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        #endregion
+        #region MEMBER_TAB
+        public static void CapNhapThanhVien_Deadlock(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+                    cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
+                    cmd.Parameters.AddWithValue("@CMND", CMND);
+                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
+                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void CapNhapThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+                    cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
+                    cmd.Parameters.AddWithValue("@CMND", CMND);
+                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
+                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void ThemThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
+                    cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
+                    cmd.Parameters.AddWithValue("@CMND", CMND);
+                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
+                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        #endregion
 
     }
 }
