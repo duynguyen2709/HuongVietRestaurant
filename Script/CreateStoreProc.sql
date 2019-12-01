@@ -882,3 +882,69 @@ begin tran
 	where MaKhuyenMai = @MaKhuyenMai
 commit
 go
+
+drop procedure if exists XemMonAn_DirtRead_T2
+go
+create procedure XemMonAn_DirtRead_T2
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+select M.MaMonAn, M.TenMonAn, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia
+from MonAn M left join LoaiMonAn L on M.MaLoai = L.MaLoai
+commit tran
+go
+
+drop procedure if exists XemThanhVien_DirtRead_T2
+go
+create procedure XemThanhVien_DirtRead_T2
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+from ThanhVien
+commit tran
+go
+
+drop procedure if exists XemVoucher_DirtRead_T2
+go
+create procedure XemVoucher_DirtRead_T2
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+select *
+from ChuongTrinhKhuyenMai
+commit tran
+go
+
+drop procedure if exists XemMonAn_DirtRead_T2_fixed
+go
+create procedure XemMonAn_DirtRead_T2_fixed
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+select M.MaMonAn, M.TenMonAn, L.TenLoai, M.URLHinhMonAn, M.MoTa, M.Gia
+from MonAn M left join LoaiMonAn L on M.MaLoai = L.MaLoai
+commit tran
+go
+
+drop procedure if exists XemThanhVien_DirtRead_T2_fixed
+go
+create procedure XemThanhVien_DirtRead_T2_fixed
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+select MaThanhVien, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy 
+from ThanhVien
+commit tran
+go
+
+drop procedure if exists XemVoucher_DirtRead_T2_fixed
+go
+create procedure XemVoucher_DirtRead_T2_fixed
+as
+begin tran
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+select *
+from ChuongTrinhKhuyenMai
+commit tran
+go
