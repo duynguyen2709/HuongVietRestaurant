@@ -114,6 +114,10 @@ DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
+
+SELECT SoLuong as SoLuongBanDau
+FROM MonAn WHERE MaMonAn = @MaMonAn
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -121,6 +125,9 @@ if(@SoLuongHienTai = 0)
 WaitFor Delay '00:00:5'
 
 SELECT @SoLuongHienTai = SoLuong 
+FROM MonAn WHERE MaMonAn = @MaMonAn
+
+SELECT SoLuong as SoLuongSau
 FROM MonAn WHERE MaMonAn = @MaMonAn
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
@@ -139,9 +146,15 @@ create procedure DungVoucher_UnrepeatableRead
 as
 BEGIN TRAN
 DECLARE @SoLuongHienTai INT
+
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai 
-WHERE MaKhuyenMai = @MaKhuyenMai 
+WHERE MaKhuyenMai = @MaKhuyenMai
+
+SELECT SoLuong as SoLuongBanDau
+FROM ChuongTrinhKhuyenMai 
+WHERE MaKhuyenMai = @MaKhuyenMai
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -150,6 +163,10 @@ WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai
+WHERE MaKhuyenMai = @MaKhuyenMai
+
+SELECT SoLuong as SoLuongSau
+FROM ChuongTrinhKhuyenMai 
 WHERE MaKhuyenMai = @MaKhuyenMai
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
@@ -174,6 +191,11 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+SELECT SoLuong as SoLuongBanDau
+FROM ChiTietGioHang 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -181,6 +203,10 @@ WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+SELECT SoLuong as SoLuongSau
+FROM ChiTietGioHang 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
@@ -204,6 +230,10 @@ DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
+
+SELECT SoLuong as SoLuongBanDau
+FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -212,6 +242,9 @@ WaitFor Delay '00:00:5'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
+
+SELECT SoLuong as SoLuongSau
+FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
@@ -229,9 +262,15 @@ create procedure DungVoucher_UnrepeatableRead_fixed
 as
 BEGIN TRAN
 DECLARE @SoLuongHienTai INT
+
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai with (RepeatableRead) 
 WHERE MaKhuyenMai = @MaKhuyenMai 
+
+SELECT SoLuong as SoLuongBanDau
+FROM ChuongTrinhKhuyenMai with (RepeatableRead) 
+WHERE MaKhuyenMai = @MaKhuyenMai 
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -241,6 +280,10 @@ WaitFor Delay '00:00:05'
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai
 WHERE MaKhuyenMai = @MaKhuyenMai
+
+SELECT SoLuong as SoLuongSau
+FROM ChuongTrinhKhuyenMai
+WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
 
@@ -264,6 +307,11 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang with (RepeatableRead) 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+SELECT SoLuong as SoLuongBanDau
+FROM ChiTietGioHang with (RepeatableRead) 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
@@ -271,6 +319,10 @@ WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+SELECT SoLuong as SoLuongSau
+FROM ChiTietGioHang with (RepeatableRead) 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
