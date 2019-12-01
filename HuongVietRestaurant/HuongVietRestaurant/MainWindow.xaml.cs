@@ -58,6 +58,8 @@ namespace HuongVietRestaurant
         private void btnReloadView_Member_Click(object sender, RoutedEventArgs e)
         {
             ViewUtil.loadView(ViewEnum.ThanhVien);
+            textBox_Diem.Text = "Điểm...";
+            txtResult1.Text = "Số lượng kết quả: ";
         }
 
         private void btnReloadView_Voucher_Click(object sender, RoutedEventArgs e)
@@ -117,7 +119,7 @@ namespace HuongVietRestaurant
 
         private void BtnXemMonAn_DirtRead_fixed_Click(object sender, RoutedEventArgs e)
         {
-            ViewUtil.loadView(ViewEnum.MonAn);
+            ViewUtil.loadView(ViewEnum.MonAnDirtyRead_Fixed);
         }
 
         private void BtnLocMonAnTheoGia_Phantom_Click(object sender, RoutedEventArgs e)
@@ -201,6 +203,58 @@ namespace HuongVietRestaurant
         {
             DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
             BaseDAO.CapNhapThanhVien_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToInt32(dataRow.Row[9]),  Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+        }
+
+        private void BtnThemThanhVien_DirtyRead_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
+            BaseDAO.ThemThanhVien_DirtyRead(Convert.ToInt32(dataRow.Row[9]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+        }
+
+        private void BtnXemThanhVien_DirtRead_T2_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ThanhVienDirtyRead);
+        }
+
+        private void BtnXemThanhVien_DirtRead_T2_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.ThanhVienDirtyRead_Fixed);
+        }
+
+        private void BtnLocThanhVienTheoDiem_Click(object sender, RoutedEventArgs e)
+        {
+            if (textBox_Diem.Text == "")
+            {
+                ViewUtil.loadView(ViewEnum.ThanhVien);
+                txtResult1.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocThanhVienTheoDiem(Convert.ToInt64(textBox_Diem.Text));
+                txtResult1.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgThanhVien.ItemsSource = result[1].DefaultView;
+            }
+        }
+
+        private void BtnLocThanhVienTheoDiem_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            if (textBox_Diem.Text == "")
+            {
+                ViewUtil.loadView(ViewEnum.ThanhVien);
+                txtResult1.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocThanhVienTheoDiem_fixed(Convert.ToInt64(textBox_Diem.Text));
+                txtResult1.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgThanhVien.ItemsSource = result[1].DefaultView;
+            }
+        }
+
+        private void BtnThemThanhVien_Phantom_T2_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
+            BaseDAO.ThemThanhVien_Phantom(Convert.ToInt32(dataRow.Row[9]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
         }
     }
 }

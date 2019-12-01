@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HuongVietRestaurant.DAO
 {
@@ -297,7 +298,7 @@ namespace HuongVietRestaurant.DAO
                             var Gia = (long)reader["Gia"];
                             ChiTietDonHang donHang = new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia);
                             donHang.PropertyChanged += MainWindow.PropertyChanged;
-                            row.ChiTiet.Add(donHang);                 
+                            row.ChiTiet.Add(donHang);
                             result.Add(row);
                         } else
                         {
@@ -306,7 +307,7 @@ namespace HuongVietRestaurant.DAO
                             var SoLuong = (int)reader["SoLuong"];
                             var Gia = (long)reader["Gia"];
                             ChiTietDonHang donHang = new ChiTietDonHang(MaMonAn, TenMonAn, SoLuong, Gia);
-                            donHang.PropertyChanged += MainWindow.PropertyChanged;                   
+                            donHang.PropertyChanged += MainWindow.PropertyChanged;
                             result[result.Count - 1].ChiTiet.Add(donHang);
                         }
                     }
@@ -461,7 +462,7 @@ namespace HuongVietRestaurant.DAO
             }
         }
 
-        public static void ThemMotMonAn_DirtyRead_T1(int MaLoai, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia,int SoLuong)
+        public static void ThemMotMonAn_DirtyRead_T1(int MaLoai, string TenMonAn, string URLHinhMonAn, string MoTa, long Gia, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -476,7 +477,14 @@ namespace HuongVietRestaurant.DAO
                     cmd.Parameters.AddWithValue("@MoTa", MoTa);
                     cmd.Parameters.AddWithValue("@Gia", Gia);
                     cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể thêm sản phẩm với giá 0đ");
+                    }
                 }
             }
         }
@@ -595,7 +603,7 @@ namespace HuongVietRestaurant.DAO
             }
         }
 
-        public static List<DataTable> LocMonAnTheoGia_Phantom(double Gia) 
+        public static List<DataTable> LocMonAnTheoGia_Phantom(double Gia)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -610,7 +618,7 @@ namespace HuongVietRestaurant.DAO
                     da = new SqlDataAdapter(cmd);
                     da.Fill(ds);
                     List<DataTable> result = new List<DataTable>();
-                    foreach(DataTable element in ds.Tables)
+                    foreach (DataTable element in ds.Tables)
                     {
                         result.Add(element);
                     }
@@ -644,7 +652,7 @@ namespace HuongVietRestaurant.DAO
         }
         #endregion
         #region BASKET_TAB
-        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(int MaDonHang,int MaMonAn, int SoLuong)
+        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -770,28 +778,180 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        //public static void ThemThanhVien_Deadlock_fixed(int MaThanhVien, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
-        //{
-        //    using (SqlConnection conn = new SqlConnection())
-        //    {
-        //        conn.ConnectionString = connectionString;
-        //        conn.Open();
-        //        using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapThanhVien_Deadlock.ToString(), conn))
-        //        {
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.Parameters.AddWithValue("@MaThanhVien", MaThanhVien);
-        //            cmd.Parameters.AddWithValue("@TenThanhVien", TenThanhVien);
-        //            cmd.Parameters.AddWithValue("@CMND", CMND);
-        //            cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
-        //            cmd.Parameters.AddWithValue("@Email", Email);
-        //            cmd.Parameters.AddWithValue("@NgaySinh", NgaySinh);
-        //            cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
-        //            cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
-        #endregion
+        public static void ThemThanhVien_DirtyRead(int MaChiNhanh, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemThanhVien_DirtyRead_T1.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
+                    cmd.Parameters.AddWithValue("@HoTen", TenThanhVien);
+                    cmd.Parameters.AddWithValue("@CMND", CMND);
+                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue("@NgaySinh", DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Số CMND không hợp lệ");
+                    }
+                }
+            }
+        }
+        public static void ThemThanhVien_Phantom(int MaChiNhanh, string TenThanhVien, string CMND, string SDT, string Email, string NgaySinh, string DiaChi, long DiemTichLuy)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemMotMonAn_Phantom_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaChiNhanh", MaChiNhanh);
+                    cmd.Parameters.AddWithValue("@HoTen", TenThanhVien);
+                    cmd.Parameters.AddWithValue("@CMND", CMND);
+                    cmd.Parameters.AddWithValue("@SoDienThoai", SDT);
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue("@NgaySinh", DateTime.ParseExact(NgaySinh, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@DiaChi", DiaChi);
+                    cmd.Parameters.AddWithValue("@DiemTichLuy", DiemTichLuy);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Số CMND không hợp lệ");
+                    }
+                }
+            }
+        }
+        public static List<ThanhVien> XemThanhVien_DirtRead_T2()
+        {
+            List<ThanhVien> result = new List<ThanhVien>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemThanhVien_DirtRead_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        ThanhVien row = new ThanhVien();
+                        row.MaThanhVien = (int)reader["MaThanhVien"];
+                        row.MaChiNhanh = (int)reader["MaChiNhanh"];
+                        row.HoTen = (string)reader["HoTen"];
+                        row.CMND = (string)reader["CMND"];
+                        row.SoDienThoai = (string)reader["SoDienThoai"];
+                        row.Email = (string)reader["Email"];
+                        row.NgaySinh = reader["NgaySinh"].ToString();
+                        row.DiaChi = (string)reader["DiaChi"];
+                        row.QuyenHan = 0;
+                        row.DiemTichLuy = (long)reader["DiemTichLuy"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+        public static List<ThanhVien> XemThanhVien_DirtRead_T2_Fixed()
+        {
+            List<ThanhVien> result = new List<ThanhVien>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemThanhVien_DirtRead_T2_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        ThanhVien row = new ThanhVien();
+                        row.MaThanhVien = (int)reader["MaThanhVien"];
+                        row.MaChiNhanh = (int)reader["MaChiNhanh"];
+                        row.HoTen = (string)reader["HoTen"];
+                        row.CMND = (string)reader["CMND"];
+                        row.SoDienThoai = (string)reader["SoDienThoai"];
+                        row.Email = (string)reader["Email"];
+                        row.NgaySinh = reader["NgaySinh"].ToString();
+                        row.DiaChi = (string)reader["DiaChi"];
+                        row.QuyenHan = 0;
+                        row.DiemTichLuy = (long)reader["DiemTichLuy"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+        public static List<DataTable> LocThanhVienTheoDiem(long Diem)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocThanhVienTheoDiem_Phantom.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Diem", Diem);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+
+        public static List<DataTable> LocThanhVienTheoDiem_fixed(long Diem)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocThanhVienTheoDiem_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Diem", Diem);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
 
     }
+    #endregion
+        #region VOUCHER
+        #endregion
 }
