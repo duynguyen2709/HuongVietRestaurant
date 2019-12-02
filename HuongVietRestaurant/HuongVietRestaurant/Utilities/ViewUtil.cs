@@ -48,6 +48,15 @@ namespace HuongVietRestaurant.Utilities
                     List<ThanhVien> listThanhVien1 = BaseDAO.XemThanhVien_DirtRead_T2_Fixed();
                     MainWindow.dtgThanhVien.ItemsSource = ToDataTable<ThanhVien>(listThanhVien1).DefaultView;
                     break;
+                case ViewEnum.Voucher_DirtyRead:
+                    List<ChuongTrinhKhuyenMai> result4 = BaseDAO.XemChuongTrinhKhuyenMai_DirtyRead();
+                    MainWindow.dtgKhuyenMai.ItemsSource = ToDataTable<ChuongTrinhKhuyenMai>(result4).DefaultView;
+                    break;
+                case ViewEnum.Voucher_DirtyRead_Fixed:
+                    List<ChuongTrinhKhuyenMai> result5 = BaseDAO.XemChuongTrinhKhuyenMai_DirtyRead_fixed();
+                    MainWindow.dtgKhuyenMai.ItemsSource = ToDataTable<ChuongTrinhKhuyenMai>(result5).DefaultView;
+                    break;
+
 
             }
             
@@ -94,6 +103,8 @@ namespace HuongVietRestaurant.Utilities
         MonAnDirtyRead,
         MonAnDirtyRead_Fixed,
         ThanhVienDirtyRead,
-        ThanhVienDirtyRead_Fixed
+        ThanhVienDirtyRead_Fixed,
+        Voucher_DirtyRead,
+        Voucher_DirtyRead_Fixed
     }
 }

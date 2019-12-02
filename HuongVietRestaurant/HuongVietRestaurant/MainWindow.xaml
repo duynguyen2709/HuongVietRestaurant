@@ -169,64 +169,68 @@
                                  Margin="5,30,0,0"
                                  TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Text="Số lượng ..." />
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button x:Name="btnDungVoucher_UnrepeatableRead" VerticalAlignment="Top" Width="135" Height="35" >
+                            <Button x:Name="btnDungVoucher_UnrepeatableRead" VerticalAlignment="Top" Width="135" Height="35" Click="BtnDungVoucher_UnrepeatableRead_Click" >
                                 <TextBlock TextWrapping="Wrap">DungVoucher
                                     UnrepeatableRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhapSoLuongVoucher" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnCapNhapSoLuongVoucher" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnCapNhapSoLuongVoucher_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">CapNhapSoLuong Voucher</TextBlock>
                             </Button>
                         </StackPanel>
-                        <Button x:Name="btnGiamSoLuongMonAnUnrepeatableRead_fixed2" 
+                        <Button x:Name="btnDungVoucher_UnrepeatableRead_fixed2" 
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0">
+                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,10,0,0" Click="BtnDungVoucher_UnrepeatableRead_fixed2_Click" >
                             <TextBlock TextWrapping="Wrap">DungVoucher
                                 UnrepeatableRead
                                 fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
-                            <Button x:Name="btnCapNhapVoucher_Deadlock" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnCapNhapVoucher_Deadlock" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnCapNhapVoucher_Deadlock_Click">
                                 <TextBlock TextWrapping="Wrap">CapNhapVoucher Deadlock</TextBlock>
                             </Button>
-                            <Button x:Name="btnCapNhapVoucher_Deadlock_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnCapNhapVoucher_Deadlock_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnCapNhapVoucher_Deadlock_fixed_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">CapNhapVoucher Deadlock fixed</TextBlock>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
-                            <Button x:Name="btnThemVoucher_DirtyRead_T1" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnThemVoucher_DirtyRead_T1" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnThemVoucher_DirtyRead_T1_Click">
                                 <TextBlock TextWrapping="Wrap">ThemVoucher DirtyRead</TextBlock>
                             </Button>
-                            <Button x:Name="btnXemVoucher_DirtRead_T2" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnXemVoucher_DirtRead_T2" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnXemVoucher_DirtRead_T2_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">XemVoucher DirtRead </TextBlock>
                             </Button>
                         </StackPanel>
                         <Button x:Name="btnXemVoucher_DirtRead_T2_fixed" HorizontalAlignment="Right" 
-                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,5,20,0">
+                                VerticalAlignment="Top" Width="135" Height="35" Margin="0,5,20,0" Click="BtnXemVoucher_DirtRead_T2_fixed_Click">
                             <TextBlock TextWrapping="Wrap" Width="135">XemVoucher DirtRead fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
-                            <Button x:Name="btnDungVoucher_LostUpdate" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnDungVoucher_LostUpdate" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnDungVoucher_LostUpdate_Click">
                                 <TextBlock TextWrapping="Wrap">DungVoucher LostUpdate</TextBlock>
                             </Button>
-                            <Button x:Name="btnDungVoucher_LostUpdate_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnDungVoucher_LostUpdate_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnDungVoucher_LostUpdate_fixed_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">DungVoucher LostUpdate fixed</TextBlock>
                             </Button>
                         </StackPanel>
 
-                        <TextBox x:Name="textBox2" BorderThickness="1" Height="25" HorizontalAlignment="Left"  
-                                 Margin="5,30,0,0"
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBox x:Name="textbox2" BorderThickness="1" Height="25" HorizontalAlignment="Left"  
+                                 Margin="5,5,0,0"
                                  TextWrapping="Wrap" Text="Giá trị...." VerticalAlignment="Top" Width="125"/>
+                            <TextBlock x:Name="txtResult2"  Margin="5,10,0,0"
+                                 TextWrapping="Wrap" Text="Số lượng kết quả: " VerticalAlignment="Top" Width="125"/>
+                        </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                            <Button x:Name="btnLocVoucherTheoGiaTri_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnLocVoucherTheoGiaTri_Phantom" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnLocVoucherTheoGiaTri_Phantom_Click">
                                 <TextBlock TextWrapping="Wrap">LocVoucherTheoGiaTri Phantom</TextBlock>
                             </Button>
-                            <Button x:Name="btnThemVoucher_Phantom_T2" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnThemVoucher_Phantom_T2" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnThemVoucher_Phantom_T2_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135">ThemVoucher Phantom </TextBlock>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button x:Name="btnLocVoucherTheoGiaTri_Phantom_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnLocVoucherTheoGiaTri_Phantom_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnLocVoucherTheoGiaTri_Phantom_fixed_Click">
                                 <TextBlock TextWrapping="Wrap">LocVoucherTheoGiaTri Phantom fixed</TextBlock>
                             </Button>
                         </StackPanel>

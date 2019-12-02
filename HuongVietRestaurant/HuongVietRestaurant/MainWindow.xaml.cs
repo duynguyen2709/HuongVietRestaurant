@@ -1,12 +1,12 @@
-﻿using System.Windows;
-using HuongVietRestaurant.Utilities;
-using System.Windows.Controls;
-using HuongVietRestaurant.DAO;
-using System;
-using System.Data;
-using System.Collections.Generic;
+﻿using HuongVietRestaurant.DAO;
 using HuongVietRestaurant.Entities;
+using HuongVietRestaurant.Utilities;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace HuongVietRestaurant
 {
@@ -52,7 +52,7 @@ namespace HuongVietRestaurant
         {
             ViewUtil.loadView(ViewEnum.MonAn);
             txtResult.Text = "Số lượng kết quả: ";
-            textbox_Gia.Text= "Giá...";
+            textbox_Gia.Text = "Giá...";
         }
 
         private void btnReloadView_Member_Click(object sender, RoutedEventArgs e)
@@ -71,8 +71,8 @@ namespace HuongVietRestaurant
         {
             ViewUtil.loadView(ViewEnum.DonHang);
         }
-		
-		private void BtnGiamSoLuongMonAnUnrepeatableRead_Click(object sender, RoutedEventArgs e)
+
+        private void BtnGiamSoLuongMonAnUnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
             int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
             int soLuong = Int32.Parse(txtSoLuong.Text);
@@ -124,7 +124,8 @@ namespace HuongVietRestaurant
 
         private void BtnLocMonAnTheoGia_Phantom_Click(object sender, RoutedEventArgs e)
         {
-            if (textbox_Gia.Text == "") {
+            if (textbox_Gia.Text == "")
+            {
                 ViewUtil.loadView(ViewEnum.MonAn);
                 txtResult.Text = "Số lượng kết quả: ";
             }
@@ -160,13 +161,13 @@ namespace HuongVietRestaurant
         private void BtnGiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(Convert.ToInt32(dataRow.Row[0]),selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
         private void BtnCapNhatSoLuongMonAnTrongChiTietDonHang_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.CapNhatSoLuongMonAnTrongChiTietGioHang(Convert.ToInt32(dataRow.Row[0]),selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.CapNhatSoLuongMonAnTrongChiTietGioHang(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
 
@@ -202,7 +203,7 @@ namespace HuongVietRestaurant
         private void BtnCapNhapThanhVien_Deadlock_fixed_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
-            BaseDAO.CapNhapThanhVien_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToInt32(dataRow.Row[9]),  Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+            BaseDAO.CapNhapThanhVien_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToInt32(dataRow.Row[9]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
         }
 
         private void BtnThemThanhVien_DirtyRead_Click(object sender, RoutedEventArgs e)
@@ -255,6 +256,114 @@ namespace HuongVietRestaurant
         {
             DataRowView dataRow = dtgThanhVien.SelectedItem as DataRowView;
             BaseDAO.ThemThanhVien_Phantom(Convert.ToInt32(dataRow.Row[9]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[3]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[2]));
+        }
+
+        private void BtnDungVoucher_UnrepeatableRead_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            List<DataTable> result = BaseDAO.DungVoucher_UnrepeatableRead(Convert.ToInt32(dataRow.Row[0]));
+            MessageBox.Show($"Số lượng ban đầu: " + Convert.ToString(result[0].Rows[0][0]) + "\n Số lượng còn lại: " + Convert.ToString(result[1].Rows[0][0]));
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnDungVoucher_UnrepeatableRead_fixed2_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            List<DataTable> result = BaseDAO.DungVoucher_UnrepeatableRead_fixed(Convert.ToInt32(dataRow.Row[0]));
+            MessageBox.Show($"Số lượng ban đầu: " + Convert.ToString(result[0].Rows[0][0]) + "\n Số lượng còn lại: " + Convert.ToString(result[1].Rows[0][0]));
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnCapNhapSoLuongVoucher_Click(object sender, RoutedEventArgs e)
+        {
+            int maVoucher = Convert.ToInt32((dtgKhuyenMai.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong2.Text);
+            BaseDAO.CapNhatSoLuongVoucher(maVoucher, soLuong);
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnCapNhapVoucher_Deadlock_Click(object sender, RoutedEventArgs e)
+        {
+            int maVoucher = Convert.ToInt32((dtgKhuyenMai.SelectedItem as DataRowView).Row[0]);
+            string GiaTri = Convert.ToString((dtgKhuyenMai.SelectedItem as DataRowView).Row[5]);
+            BaseDAO.CapNhatVoucher_Deadlock(maVoucher, GiaTri);
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnCapNhapVoucher_Deadlock_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            int maVoucher = Convert.ToInt32((dtgKhuyenMai.SelectedItem as DataRowView).Row[0]);
+            string GiaTri = Convert.ToString((dtgKhuyenMai.SelectedItem as DataRowView).Row[5]);
+            BaseDAO.CapNhatVoucher_Deadlock_fixed(maVoucher, GiaTri);
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnXemVoucher_DirtRead_T2_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.Voucher_DirtyRead);
+        }
+
+        private void BtnXemVoucher_DirtRead_T2_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            ViewUtil.loadView(ViewEnum.Voucher_DirtyRead_Fixed);
+        }
+
+        private void BtnDungVoucher_LostUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            List<DataTable> result = BaseDAO.DungVoucher_LostUpdate(Convert.ToInt32(dataRow.Row[0]));
+            MessageBox.Show($"Số lượng ban đầu: " + Convert.ToString(result[0].Rows[0][0]) + "\n Số lượng còn lại: " + Convert.ToString(result[1].Rows[0][0]));
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnDungVoucher_LostUpdate_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            List<DataTable> result = BaseDAO.DungVoucher_LostUpdate(Convert.ToInt32(dataRow.Row[0]));
+            MessageBox.Show($"Số lượng ban đầu: " + Convert.ToString(result[0].Rows[0][0]) + "\n Số lượng còn lại: " + Convert.ToString(result[1].Rows[0][0]));
+            ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+        }
+
+        private void BtnThemVoucher_DirtyRead_T1_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            BaseDAO.ThemVoucher_DirtyRead_T1(Convert.ToInt32(dataRow.Row[3]), Convert.ToString(dataRow.Row[1]), Convert.ToInt32(dataRow.Row[4]), Convert.ToInt32(dataRow[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow[7]), Convert.ToInt32(dataRow.Row[2]));
+        }
+
+        private void BtnThemVoucher_Phantom_T2_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView dataRow = dtgKhuyenMai.SelectedItem as DataRowView;
+            BaseDAO.ThemVoucher_Phantom(Convert.ToInt32(dataRow.Row[3]), Convert.ToString(dataRow.Row[1]), Convert.ToInt32(dataRow.Row[4]), Convert.ToInt32(dataRow[5]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow[7]), Convert.ToInt32(dataRow.Row[2]));
+        }
+
+        private void BtnLocVoucherTheoGiaTri_Phantom_Click(object sender, RoutedEventArgs e)
+        {
+            if (textbox2.Text == "")
+            {
+                ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+                txtResult1.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocVoucherTheoGiaTri_Phantom(Convert.ToInt32(textbox2.Text));
+                txtResult2.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgKhuyenMai.ItemsSource = result[1].DefaultView;
+            }
+        }
+
+        private void BtnLocVoucherTheoGiaTri_Phantom_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            if (textbox2.Text == "")
+            {
+                ViewUtil.loadView(ViewEnum.ChuongTrinhKhuyenMai);
+                txtResult1.Text = "Số lượng kết quả: ";
+            }
+            else
+            {
+                List<DataTable> result = BaseDAO.LocVoucherTheoGiaTri_Phantom_fixed(Convert.ToInt32(textbox2.Text));
+                txtResult2.Text = "Số lượng kết quả: " + Convert.ToString(result[0].Rows[0][0]);
+                dtgKhuyenMai.ItemsSource = result[1].DefaultView;
+            }
         }
     }
 }

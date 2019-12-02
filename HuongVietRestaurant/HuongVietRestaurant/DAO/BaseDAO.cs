@@ -4,10 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace HuongVietRestaurant.DAO
@@ -300,7 +296,8 @@ namespace HuongVietRestaurant.DAO
                             donHang.PropertyChanged += MainWindow.PropertyChanged;
                             row.ChiTiet.Add(donHang);
                             result.Add(row);
-                        } else
+                        }
+                        else
                         {
                             var MaMonAn = (int)reader["MaMonAn"];
                             var TenMonAn = (string)reader["TenMonAn"];
@@ -949,9 +946,310 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-
-    }
-    #endregion
-        #region VOUCHER
         #endregion
+
+        #region VOUCHER
+        public static List<DataTable> DungVoucher_UnrepeatableRead(int MaKhuyenMai)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.DungVoucher_UnrepeatableRead.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaKhuyenMai);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        public static List<DataTable> DungVoucher_UnrepeatableRead_fixed(int MaKhuyenMai)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.DungVoucher_UnrepeatableRead_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaKhuyenMai);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        public static void CapNhatSoLuongVoucher(int MaVoucher,int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongVoucher.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaVoucher", MaVoucher);
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void CapNhatVoucher_Deadlock(int MaVoucher, String GiaTri)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapVoucher_Deadlock.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaVoucher);
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void CapNhatVoucher_Deadlock_fixed(int MaVoucher, String GiaTri)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapVoucher_Deadlock_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaVoucher);
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static List<ChuongTrinhKhuyenMai> XemChuongTrinhKhuyenMai_DirtyRead()
+        {
+            List<ChuongTrinhKhuyenMai> result = new List<ChuongTrinhKhuyenMai>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemVoucher_DirtRead_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        ChuongTrinhKhuyenMai row = new ChuongTrinhKhuyenMai();
+                        row.MaKhuyenMai = (int)reader["MaKhuyenMai"];
+                        row.TenChuongTrinh = (string)reader["TenChuongTrinh"];
+                        row.MaLoai = (int)reader["MaLoai"];
+                        row.DoiTuongApDung = (int)reader["DoiTuongApDung"];
+                        row.GiaTri = (long)reader["GiaTri"];
+                        row.NgayBatDau = reader["NgayBatDau"].ToString();
+                        row.NgayKetThuc = reader["NgayKetThuc"].ToString();
+                        row.SoLuong = (int)reader["SoLuong"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+        public static List<ChuongTrinhKhuyenMai> XemChuongTrinhKhuyenMai_DirtyRead_fixed()
+        {
+            List<ChuongTrinhKhuyenMai> result = new List<ChuongTrinhKhuyenMai>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.XemVoucher_DirtRead_T2_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.HasRows)
+                        return result;
+
+                    while (reader.Read())
+                    {
+                        ChuongTrinhKhuyenMai row = new ChuongTrinhKhuyenMai();
+                        row.MaKhuyenMai = (int)reader["MaKhuyenMai"];
+                        row.TenChuongTrinh = (string)reader["TenChuongTrinh"];
+                        row.MaLoai = (int)reader["MaLoai"];
+                        row.DoiTuongApDung = (int)reader["DoiTuongApDung"];
+                        row.GiaTri = (long)reader["GiaTri"];
+                        row.NgayBatDau = reader["NgayBatDau"].ToString();
+                        row.NgayKetThuc = reader["NgayKetThuc"].ToString();
+                        row.SoLuong = (int)reader["SoLuong"];
+                        result.Add(row);
+                    }
+                    reader.Close();
+                }
+            }
+            return result;
+        }
+        public static List<DataTable> DungVoucher_LostUpdate(int MaKhuyenMai)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.DungVoucher_LostUpdate.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaKhuyenMai);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        public static List<DataTable> DungVoucher_LostUpdate_fixed(int MaKhuyenMai)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.DungVoucher_LostUpdate_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaKhuyenMai", MaKhuyenMai);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        public static void ThemVoucher_DirtyRead_T1(int MaLoai, string TenChuongTrinh, int DoiTuongApDung, int GiaTri, string NgayBatDau, string NgayKetThuc, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemVoucher_DirtyRead_T1.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@TenChuongTrinh", TenChuongTrinh);
+                    cmd.Parameters.AddWithValue("@MaLoai", MaLoai);
+                    cmd.Parameters.AddWithValue("@DoiTuongApDung", DoiTuongApDung);
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    cmd.Parameters.AddWithValue("@NgayBatDat", DateTime.ParseExact(NgayBatDau, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@NgayKetThuc", DateTime.ParseExact(NgayKetThuc, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể thêm chương trình khuyến mãi có số lượng nhỏ hơn hoặc bằng 0");
+                    }
+                }
+            }
+        }
+        public static void ThemVoucher_Phantom(int MaLoai, string TenChuongTrinh, int DoiTuongApDung, int GiaTri, string NgayBatDau, string NgayKetThuc, int SoLuong)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemVoucher_Phantom_T2.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@TenChuongTrinh", TenChuongTrinh);
+                    cmd.Parameters.AddWithValue("@MaLoai", MaLoai);
+                    cmd.Parameters.AddWithValue("@DoiTuongApDung", DoiTuongApDung);
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    cmd.Parameters.AddWithValue("@NgayBatDat", DateTime.ParseExact(NgayBatDau, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@NgayKetThuc", DateTime.ParseExact(NgayKetThuc, "dd/MM/yyyy", null));
+                    cmd.Parameters.AddWithValue("@SoLuong", SoLuong);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể thêm chương trình khuyến mãi có số lượng nhỏ hơn hoặc bằng 0");
+                    }
+                }
+            }
+        }
+        public static List<DataTable> LocVoucherTheoGiaTri_Phantom(int GiaTri)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocVoucherTheoGiaTri_Phantom.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        public static List<DataTable> LocVoucherTheoGiaTri_Phantom_fixed(int GiaTri)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.LocVoucherTheoGiaTri_fixed.ToString(), conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@GiaTri", GiaTri);
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    DataSet ds = new DataSet();
+                    da = new SqlDataAdapter(cmd);
+                    da.Fill(ds);
+                    List<DataTable> result = new List<DataTable>();
+                    foreach (DataTable element in ds.Tables)
+                    {
+                        result.Add(element);
+                    }
+                    return result;
+                }
+            }
+        }
+        #endregion
+    }
 }
