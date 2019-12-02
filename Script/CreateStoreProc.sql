@@ -46,7 +46,7 @@ go
 create procedure XemDonHang
 as
 select D.MaDonHang,M.MaMonAn, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
-from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
+from ChiTietDonHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
 left join DonHang D on CT.MaDonHang = D.MaDonHang
 left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
 left join ThanhVien T on D.MaThanhVien = T.MaThanhVien
@@ -91,7 +91,7 @@ create procedure XemMotDonHang
 	@MaDonHang int
 as
 select D.MaDonHang,M.MaMonAn, M.TenMonAn, CT.SoLuong, CT.TongTien as Gia, C.TenChiNhanh, T.HoTen as TenThanhVien, D.ThoiGianTao, D.ThoiGianGiaoHang, TR.TenTrangThai, D.TongTien, D.PhiGiaoHang, D.PhuongThucThanhToan, D.DiaChiGiaoHang, K.TenKenhDatHang
-from ChiTietGioHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
+from ChiTietDonHang CT left join MonAn M on CT.MaMonAn = M.MaMonAn
 left join DonHang D on CT.MaDonHang = D.MaDonHang
 left join ChiNhanh C on D.MaChiNhanh = C.MaChiNhanh
 left join ThanhVien T on D.MaThanhVien = T.MaThanhVien
@@ -118,7 +118,7 @@ FROM MonAn WHERE MaMonAn = @MaMonAn
 SELECT SoLuong as SoLuongBanDau
 FROM MonAn WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+--Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 
@@ -127,15 +127,15 @@ WaitFor Delay '00:00:5'
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
 
-SELECT SoLuong as SoLuongSau
-FROM MonAn WHERE MaMonAn = @MaMonAn
-
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM MonAn WHERE MaMonAn = @MaMonAn
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -155,7 +155,7 @@ SELECT SoLuong as SoLuongBanDau
 FROM ChuongTrinhKhuyenMai 
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-Print @SoLuongHienTai
+--Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 
@@ -165,22 +165,24 @@ SELECT @SoLuongHienTai = SoLuong
 FROM ChuongTrinhKhuyenMai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-SELECT SoLuong as SoLuongSau
-FROM ChuongTrinhKhuyenMai 
-WHERE MaKhuyenMai = @MaKhuyenMai
+
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
 
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM ChuongTrinhKhuyenMai 
+WHERE MaKhuyenMai = @MaKhuyenMai
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
-drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead
+drop procedure if exists GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead
 go
-create procedure GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead
+create procedure GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead
 	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
@@ -189,31 +191,33 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang 
+FROM ChiTietDonHang 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SELECT SoLuong as SoLuongBanDau
-FROM ChiTietGioHang 
+FROM ChiTietDonHang 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-Print @SoLuongHienTai
+--Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-SELECT SoLuong as SoLuongSau
-FROM ChiTietGioHang 
-WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
-UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
+UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM ChiTietDonHang 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -234,7 +238,7 @@ FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
 SELECT SoLuong as SoLuongBanDau
 FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+--Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 
@@ -243,15 +247,17 @@ WaitFor Delay '00:00:5'
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
 
-SELECT SoLuong as SoLuongSau
-FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
+
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -281,22 +287,23 @@ SELECT @SoLuongHienTai = SoLuong
 FROM ChuongTrinhKhuyenMai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-SELECT SoLuong as SoLuongSau
-FROM ChuongTrinhKhuyenMai
-WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
 
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM ChuongTrinhKhuyenMai
+WHERE MaKhuyenMai = @MaKhuyenMai 
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
-drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed
+drop procedure if exists GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead_fixed
 go
-create procedure GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed
+create procedure GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead_fixed
 	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
@@ -305,11 +312,11 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang with (RepeatableRead) 
+FROM ChiTietDonHang with (RepeatableRead) 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 SELECT SoLuong as SoLuongBanDau
-FROM ChiTietGioHang with (RepeatableRead) 
+FROM ChiTietDonHang with (RepeatableRead) 
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
@@ -318,18 +325,20 @@ if(@SoLuongHienTai = 0)
 WaitFor Delay '00:00:05'
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-SELECT SoLuong as SoLuongSau
-FROM ChiTietGioHang with (RepeatableRead) 
-WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
-UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
+UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-Print @SoLuongHienTai
+SELECT SoLuong as SoLuongSau
+FROM ChiTietDonHang with (RepeatableRead) 
+WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -352,14 +361,14 @@ as
 	update ChuongTrinhKhuyenMai set SoLuong = @SoLuong where MaKhuyenMai = @MaVoucher
 go
 
-drop procedure if exists CapNhapSoLuongMonAnTrongChiTietGioHang
+drop procedure if exists CapNhapSoLuongMonAnTrongChiTietDonHang
 go
-create procedure CapNhapSoLuongMonAnTrongChiTietGioHang
+create procedure CapNhapSoLuongMonAnTrongChiTietDonHang
 	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
 as
-	update ChiTietGioHang set SoLuong = @SoLuong where  MaDonHang = @MaDonHang and MaMonAn = @MaMonAn
+	update ChiTietDonHang set SoLuong = @SoLuong where  MaDonHang = @MaDonHang and MaMonAn = @MaMonAn
 go
 
 --phantom
@@ -693,9 +702,9 @@ Print @SoLuongHienTai
 Commit Transaction
 go
 
-drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate
+drop procedure if exists GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate
 go
-create procedure GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate
+create procedure GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate
 	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
@@ -704,12 +713,12 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
-UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
+UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
@@ -762,9 +771,9 @@ Print @SoLuongHienTai
 Commit Transaction
 go
 
-drop procedure if exists GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed
+drop procedure if exists GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed
 go
-create procedure GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed
+create procedure GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed
 	@MaDonHang int,
 	@MaMonAn int,
 	@SoLuong int
@@ -774,12 +783,12 @@ BEGIN TRAN
 DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
-FROM ChiTietGioHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
-UPDATE ChiTietGioHang SET SoLuong = @SoLuongHienTai
+UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
 Print @SoLuongHienTai
