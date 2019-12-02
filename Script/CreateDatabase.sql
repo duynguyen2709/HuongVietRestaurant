@@ -171,7 +171,7 @@ CREATE INDEX [FK_DonHang_TrangThai_idx] ON DonHang ([TrangThai]);
 CREATE INDEX [FK_DonHang_KenhDatHang_idx] ON DonHang ([KenhDatHang]);
 
 
-CREATE TABLE ChiTietGioHang (
+CREATE TABLE ChiTietDonHang (
   [MaDonHang] int NOT NULL,
   [MaMonAn] int NOT NULL,
   [SoLuong] int NOT NULL DEFAULT '0',
@@ -182,7 +182,7 @@ CREATE TABLE ChiTietGioHang (
   CONSTRAINT [FK_ChiTietGioHang_MonAn] FOREIGN KEY ([MaMonAn]) REFERENCES MonAn ([MaMonAn])
 )  ;
 
-CREATE INDEX [FK_ChiTietGioHang_MonAn_idx] ON ChiTietGioHang ([MaMonAn]);
+CREATE INDEX [FK_ChiTietGioHang_MonAn_idx] ON ChiTietDonHang ([MaMonAn]);
 
 CREATE TABLE NhanVien (
   [MaNhanVien] int NOT NULL IDENTITY,
@@ -299,7 +299,7 @@ INSERT INTO MonAn (MaMonAn,MaLoai,TenMonAn,URLHinhMonAn,MoTa,Gia,SoLuong) VALUES
 		10);
 SET IDENTITY_INSERT MonAn OFF
 
-INSERT INTO ChiTietGioHang (MaDonHang,MaMonAn,SoLuong,TongTien) VALUES (1,3,1,80000),(2,1,1,40000);
+INSERT INTO ChiTietDonHang (MaDonHang,MaMonAn,SoLuong,TongTien) VALUES (1,3,1,80000),(2,1,1,40000);
 
 INSERT INTO ThucDon (MaMonAn,MaChiNhanh,Ngay,SoLuong) VALUES (1,1,'2019-10-21',5),(1,2,'2019-10-21',7),(1,3,'2019-10-21',10),(2,1,'2019-10-21',7),(2,2,'2019-10-21',5);
 

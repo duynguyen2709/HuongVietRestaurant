@@ -161,13 +161,13 @@ namespace HuongVietRestaurant
         private void BtnGiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
         private void BtnCapNhatSoLuongMonAnTrongChiTietDonHang_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.CapNhatSoLuongMonAnTrongChiTietGioHang(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.CapNhatSoLuongMonAnTrongChiTietDonHang(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
 
@@ -179,19 +179,19 @@ namespace HuongVietRestaurant
         private void BtnGiamSoLuongMonAnTrongChiTietGioHangUnrepeatableRead_fixed_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead_fixed(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
         private void BtnGiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
         private void BtnGiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgDonHang.SelectedItem as DataRowView;
-            BaseDAO.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
+            BaseDAO.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed(Convert.ToInt32(dataRow.Row[0]), selectedChiTietDonHang.MaMonAn, Convert.ToInt32(txtSoLuong3.Text));
         }
 
         private void BtnCapNhapThanhVien_Deadlock_Click(object sender, RoutedEventArgs e)

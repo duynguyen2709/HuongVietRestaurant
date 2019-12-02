@@ -649,13 +649,13 @@ namespace HuongVietRestaurant.DAO
         }
         #endregion
         #region BASKET_TAB
-        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead(int MaDonHang, int MaMonAn, int SoLuong)
+        public static void GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
@@ -665,13 +665,13 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed(int MaDonHang, int MaMonAn, int SoLuong)
+        public static void GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead_fixed(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_UnrepeatableRead_fixed.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_UnrepeatableRead_fixed.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
@@ -681,13 +681,13 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate(int MaDonHang, int MaMonAn, int SoLuong)
+        public static void GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
@@ -697,13 +697,13 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed(int MaDonHang, int MaMonAn, int SoLuong)
+        public static void GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietGioHang_LostUpdate_fixed.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
@@ -713,13 +713,13 @@ namespace HuongVietRestaurant.DAO
                 }
             }
         }
-        public static void CapNhatSoLuongMonAnTrongChiTietGioHang(int MaDonHang, int MaMonAn, int SoLuong)
+        public static void CapNhatSoLuongMonAnTrongChiTietDonHang(int MaDonHang, int MaMonAn, int SoLuong)
         {
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = connectionString;
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongMonAnTrongChiTietGioHang.ToString(), conn))
+                using (SqlCommand cmd = new SqlCommand(StoreProcEnum.CapNhapSoLuongMonAnTrongChiTietDonHang.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MaDonHang", MaDonHang);
@@ -947,7 +947,6 @@ namespace HuongVietRestaurant.DAO
             }
         }
         #endregion
-
         #region VOUCHER
         public static List<DataTable> DungVoucher_UnrepeatableRead(int MaKhuyenMai)
         {
