@@ -546,11 +546,11 @@ namespace HuongVietRestaurant.DAO
         }
         public static void GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate(int MaDonHang, int MaMonAn, int SoLuong)
         {
-            UpdateSoLuongMonAnTrongChiTietDonHang(MaDonHang, MaMonAn, SoLuong, StoreProcEnum.GiamSoLuongMonAn_LostUpdate);
+            UpdateSoLuongMonAnTrongChiTietDonHang(MaDonHang, MaMonAn, SoLuong, StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate);
         }
         public static void GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed(int MaDonHang, int MaMonAn, int SoLuong)
         {
-            UpdateSoLuongMonAnTrongChiTietDonHang(MaDonHang, MaMonAn, SoLuong, StoreProcEnum.GiamSoLuongMonAn_LostUpdate_fixed);
+            UpdateSoLuongMonAnTrongChiTietDonHang(MaDonHang, MaMonAn, SoLuong, StoreProcEnum.GiamSoLuongMonAnTrongChiTietDonHang_LostUpdate_fixed);
         }
         public static void CapNhatSoLuongMonAnTrongChiTietDonHang(int MaDonHang, int MaMonAn, int SoLuong)
         {
