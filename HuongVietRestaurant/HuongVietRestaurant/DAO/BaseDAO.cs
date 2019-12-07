@@ -781,7 +781,7 @@ namespace HuongVietRestaurant.DAO
         }
         public static void ThemVoucher_DirtyRead_T1(int MaLoai, string TenChuongTrinh, int DoiTuongApDung, int GiaTri, string NgayBatDau, string NgayKetThuc, int SoLuong)
         {
-            ThemVoucher(MaLoai, TenChuongTrinh, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong,StoreProcEnum.ThemMotMonAn_DirtyRead_T1);
+            ThemVoucher(MaLoai, TenChuongTrinh, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong,StoreProcEnum.ThemVoucher_DirtyRead_T1);
         }
 
         private static void ThemVoucher(int MaLoai, string TenChuongTrinh, int DoiTuongApDung, int GiaTri, string NgayBatDau, string NgayKetThuc, int SoLuong, StoreProcEnum type)
@@ -814,7 +814,7 @@ namespace HuongVietRestaurant.DAO
 
         public static void ThemVoucher_Phantom(int MaLoai, string TenChuongTrinh, int DoiTuongApDung, int GiaTri, string NgayBatDau, string NgayKetThuc, int SoLuong)
         {
-            ThemVoucher(MaLoai, TenChuongTrinh, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong, StoreProcEnum.ThemMotMonAn_Phantom_T2);
+            ThemVoucher(MaLoai, TenChuongTrinh, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong, StoreProcEnum.ThemVoucher_Phantom_T2);
         }
         public static List<DataTable> LocVoucherTheoGiaTri_Phantom(int GiaTri)
         {
