@@ -365,5 +365,19 @@ namespace HuongVietRestaurant
                 dtgKhuyenMai.ItemsSource = result[1].DefaultView;
             }
         }
+
+        private void BtnGiamSoLuongMonAn_LostUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong.Text);
+            BaseDAO.GiamSoLuongMonAn_LostUpdate(maMonAn, soLuong);
+        }
+
+        private void BtnGiamSoLuongMonAn_LostUpdate_fixed_Click(object sender, RoutedEventArgs e)
+        {
+            int maMonAn = Convert.ToInt32((dtgMonAn.SelectedItem as DataRowView).Row[0]);
+            int soLuong = Int32.Parse(txtSoLuong.Text);
+            BaseDAO.GiamSoLuongMonAn_LostUpdate_fixed(maMonAn, soLuong);
+        }
     }
 }

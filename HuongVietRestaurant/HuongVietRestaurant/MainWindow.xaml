@@ -57,11 +57,11 @@
                                     DirtyRead fixed</TextBlock>
                         </Button>
                         <StackPanel Orientation="Horizontal" Margin="0,35,0,0">
-                            <Button x:Name="btnGiamSoLuongMonAn_LostUpdate" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0">
+                            <Button x:Name="btnGiamSoLuongMonAn_LostUpdate" VerticalAlignment="Top" Width="135" Height="35" Margin="2,0,2,0" Click="BtnGiamSoLuongMonAn_LostUpdate_Click">
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">GiamSoLuongMonAn
                                 LostUpdate</TextBlock>
                             </Button>
-                            <Button x:Name="btnGiamSoLuongMonAn_LostUpdate_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0">
+                            <Button x:Name="btnGiamSoLuongMonAn_LostUpdate_fixed" VerticalAlignment="Top" Width="135" Height="35" Margin="5,0,0,0" Click="BtnGiamSoLuongMonAn_LostUpdate_fixed_Click">
                                 <TextBlock TextWrapping="Wrap" Width="135" TextAlignment="Center">GiamSoLuongMonAn
                                 LostUpdate_fixed</TextBlock>
                             </Button>
