@@ -672,13 +672,19 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn 
 
+SELECT SoLuong 
+FROM MonAn WHERE MaMonAn = @MaMonAn 
+
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM MonAn WHERE MaMonAn = @MaMonAn 
+
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -692,13 +698,17 @@ DECLARE @SoLuongHienTai INT
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai 
+SELECT SoLuong 
+FROM ChuongTrinhKhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
 WaitFor Delay '00:00:05'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM ChuongTrinhKhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai 
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -715,13 +725,18 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
+SELECT SoLuong 
+FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -739,13 +754,18 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn 
 
+SELECT SoLuong 
+FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn
+
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -762,12 +782,17 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai with (updlock) WHERE MaKhuyenMai = @MaKhuyenMai 
 
+SELECT SoLuong 
+FROM ChuongTrinhKhuyenMai with (updlock) WHERE MaKhuyenMai = @MaKhuyenMai 
+
 SET @SoLuongHienTai = @SoLuongHienTai - 1
 WaitFor Delay '00:00:05'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM ChuongTrinhKhuyenMai with (updlock) WHERE MaKhuyenMai = @MaKhuyenMai 
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
@@ -785,13 +810,18 @@ DECLARE @SoLuongHienTai INT
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
+SELECT SoLuong 
+FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+
 WaitFor Delay '00:00:05'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
 WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-Print @SoLuongHienTai
+SELECT SoLuong 
+FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
+--Print @SoLuongHienTai
 Commit Transaction
 go
 
