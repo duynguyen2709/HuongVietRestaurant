@@ -122,7 +122,7 @@ FROM MonAn WHERE MaMonAn = @MaMonAn
 if(@SoLuongHienTai = 0)
 	rollback
 
-WaitFor Delay '00:00:5'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
@@ -159,7 +159,7 @@ WHERE MaKhuyenMai = @MaKhuyenMai
 if(@SoLuongHienTai = 0)
 	rollback
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai
@@ -201,7 +201,7 @@ WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 --Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
@@ -242,7 +242,7 @@ FROM MonAn with (RepeatableRead) WHERE MaMonAn = @MaMonAn
 if(@SoLuongHienTai = 0)
 	rollback
 
-WaitFor Delay '00:00:5'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn
@@ -281,7 +281,7 @@ Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChuongTrinhKhuyenMai
@@ -322,7 +322,7 @@ WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 Print @SoLuongHienTai
 if(@SoLuongHienTai = 0)
 	rollback
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 
 SELECT @SoLuongHienTai = SoLuong 
 FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
@@ -382,7 +382,7 @@ begin tran
 	select Count(*) from MonAn
 	where Gia <= @Gia
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from MonAn
 	where Gia <= @Gia
@@ -398,7 +398,7 @@ begin tran
 	select Count(*) from ThanhVien
 	where DiemTichLuy <= @Diem
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from ThanhVien
 	where DiemTichLuy <= @Diem
@@ -414,7 +414,7 @@ begin tran
 	select Count(*) from ChuongTrinhKhuyenMai
 	where GiaTri <= @GiaTri
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from ChuongTrinhKhuyenMai
 	where GiaTri <= @GiaTri
@@ -431,7 +431,7 @@ begin tran
 	select Count(*) from MonAn with (Serializable) 
 	where Gia <= @Gia
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from MonAn
 	where Gia <= @Gia
@@ -447,7 +447,7 @@ begin tran
 	select Count(*) from ThanhVien with (Serializable) 
 	where DiemTichLuy <= @Diem
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from ThanhVien
 	where DiemTichLuy <= @Diem
@@ -463,7 +463,7 @@ begin tran
 	select Count(*) from ChuongTrinhKhuyenMai with (Serializable) 
 	where GiaTri <= @GiaTri
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	select * from ChuongTrinhKhuyenMai
 	where GiaTri <= @GiaTri
@@ -537,7 +537,7 @@ begin tran
 	insert into MonAn(TenMonAn, MaLoai, URLHinhMonAn, MoTa, Gia, SoLuong)
 	values (@TenMonAn, @MaLoai, @URLHinhMonAn, @MoTa, @Gia, @SoLuong)
 
-	waitfor delay '00:00:05'
+	waitfor delay '00:00:10'
 
 	if(@gia = 0)
 		rollback
@@ -560,7 +560,7 @@ begin tran
 	insert into ThanhVien (MaChiNhanh, HoTen, CMND, SoDienThoai, Email, NgaySinh, DiaChi, DiemTichLuy)
 	values (@MaChiNhanh, @HoTen, @CMND, @SoDienThoai, @Email, @NgaySinh, @DiaChi, @DiemTichLuy)
 
-	waitfor delay '00:00:05'
+	waitfor delay '00:00:10'
 
 	if(len(@CMND) != 10)
 		rollback
@@ -582,7 +582,7 @@ begin tran
 	insert into ChuongTrinhKhuyenMai (TenChuongTrinh, MaLoai, DoiTuongApDung, GiaTri, NgayBatDau, NgayKetThuc, SoLuong)
 	values (@TenChuongTrinh, @MaLoai, @DoiTuongApDung, @GiaTri, @NgayBatDat, @NgayKetThuc, @SoLuong)
 
-	waitfor delay '00:00:05'
+	waitfor delay '00:00:10'
 
 	if(@SoLuong <= 0)
 		rollback
@@ -675,7 +675,7 @@ FROM MonAn WHERE MaMonAn = @MaMonAn
 SELECT SoLuong 
 FROM MonAn WHERE MaMonAn = @MaMonAn 
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
@@ -702,7 +702,7 @@ SELECT SoLuong
 FROM ChuongTrinhKhuyenMai WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
@@ -728,7 +728,7 @@ FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 SELECT SoLuong 
 FROM ChiTietDonHang WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
@@ -757,7 +757,7 @@ FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn
 SELECT SoLuong 
 FROM MonAn with (updlock) WHERE MaMonAn = @MaMonAn
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE MonAn SET SoLuong = @SoLuongHienTai
@@ -786,7 +786,7 @@ SELECT SoLuong
 FROM ChuongTrinhKhuyenMai with (updlock) WHERE MaKhuyenMai = @MaKhuyenMai 
 
 SET @SoLuongHienTai = @SoLuongHienTai - 1
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 UPDATE ChuongTrinhKhuyenMai SET SoLuong = @SoLuongHienTai
 WHERE MaKhuyenMai = @MaKhuyenMai
 
@@ -813,7 +813,7 @@ FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaD
 SELECT SoLuong 
 FROM ChiTietDonHang with (updlock) WHERE MaMonAn = @MaMonAn and MaDonHang = @MaDonHang
 
-WaitFor Delay '00:00:05'
+WaitFor Delay '00:00:10'
 SET @SoLuongHienTai = @SoLuongHienTai - @SoLuong
 
 UPDATE ChiTietDonHang SET SoLuong = @SoLuongHienTai
@@ -839,7 +839,7 @@ as
 begin tran
 	set tran isolation level repeatable read
 	select * from  MonAn  where MaMonAn = @MaMonAn 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 	update MonAn
 	set TenMonAn = @TenMonAn,
 	URLHinhMonAn = @URLHinhMonAn,
@@ -866,7 +866,7 @@ begin tran
 	set tran isolation level repeatable read
 	select * from ThanhVien where MaThanhVien = @MaThanhVien
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	update ThanhVien
 	set MaChiNhanh = @MaChiNhanh,
@@ -891,7 +891,7 @@ begin tran
 	set tran isolation level repeatable read
 	select * from ChuongTrinhKhuyenMai where MaKhuyenMai = @MaKhuyenMai
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	update ChuongTrinhKhuyenMai
 	set GiaTri = @GiaTri
@@ -913,7 +913,7 @@ begin tran
 	set tran isolation level repeatable read
 	select * from MonAn with (updlock) where MaMonAn = @MaMonAn 
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	update MonAn
 	set TenMonAn = @TenMonAn,
@@ -941,7 +941,7 @@ begin tran
 	set tran isolation level repeatable read
 	select * from ThanhVien with (updlock) where MaThanhVien = @MaThanhVien
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	update ThanhVien
 	set HoTen = @TenThanhVien,
@@ -966,7 +966,7 @@ begin tran
 	set tran isolation level repeatable read
 	select * from ChuongTrinhKhuyenMai with (updlock) where MaKhuyenMai = @MaKhuyenMai
 
-	WaitFor Delay '00:00:05'
+	WaitFor Delay '00:00:10'
 
 	update ChuongTrinhKhuyenMai
 	set GiaTri = @GiaTri
