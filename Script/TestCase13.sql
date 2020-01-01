@@ -5,7 +5,7 @@ go
 1. Nội dung tình huống: 
 	+ Quản lý thực hiện thêm một voucher với số lượng ít hơn 0 trong lúc đó
 	một quản lý khác thực hiện xem danh sách tất cả các vuocher đang được áp dụng.
-	=> trả về kết quả bao gồm món ăn 0đ (đáng lẽ không xuất hiện).
+	=> trả về kết quả bao gồm voucher có số lượng 0 (đáng lẽ không xuất hiện).
 2. Các bước thực hiện để xảy ra lỗi:
 	+ Bước 1: Chạy Transaction 1 (Thêm một voucher không thỏa điều kiện số lượng > 0)
 	+ Bước 2: Trong vòng 10s từ khi Transaction 1 chạy ta chạy Transacion 2 (Xem danh sách voucher)

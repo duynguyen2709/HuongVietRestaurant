@@ -60,7 +60,7 @@ go
 
 /* TRANSACTION */
 --T1
-EXEC [dbo].ThemMotMonAn_DirtyRead_T1 @TenMonAn = "Cơm chiên hải sản", @MaLoai = 3, @URLHinhMonAn=" " ,@MoTa = " AbCXYZ" ,@Gia= 40000, @SoLuong = 50;
+EXEC [dbo].ThemMotMonAn_DirtyRead_T1 @TenMonAn = "Cơm chiên hải sản", @MaLoai = 3, @URLHinhMonAn=" " ,@MoTa = " AbCXYZ" ,@Gia= 0, @SoLuong = 50;
 --T2
 EXEC [dbo].XemMonAn_DirtRead_T2;
 --T1 Fixed
