@@ -103,13 +103,13 @@ namespace HuongVietRestaurant
         private void BtnCapNhapMonAn_Deadlock_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
-            BaseDAO.CapNhapMonAn_Deadlock(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]));
+            BaseDAO.CapNhapMonAn_Deadlock(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[5]));
         }
 
         private void BtnCapNhapMonAn_Deadlock_fixed_Click(object sender, RoutedEventArgs e)
         {
             DataRowView dataRow = dtgMonAn.SelectedItem as DataRowView;
-            BaseDAO.CapNhapMonAn_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[4]), Convert.ToString(dataRow.Row[5]), Convert.ToInt64(dataRow.Row[3]));
+            BaseDAO.CapNhapMonAn_Deadlock_fixed(Convert.ToInt32(dataRow.Row[0]), Convert.ToString(dataRow.Row[1]), Convert.ToString(dataRow.Row[6]), Convert.ToString(dataRow.Row[7]), Convert.ToInt64(dataRow.Row[5]));
         }
 
         private void BtnXemMonAn_DirtRead_Click(object sender, RoutedEventArgs e)

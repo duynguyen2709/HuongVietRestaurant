@@ -455,7 +455,7 @@ namespace HuongVietRestaurant.DAO
                 using (SqlCommand cmd = new SqlCommand(StoreProcEnum.ThemMotMonAn_Phantom_T2.ToString(), conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@@MaLoai", @MaLoai);
+                    cmd.Parameters.AddWithValue("@MaLoai", @MaLoai);
                     cmd.Parameters.AddWithValue("@TenMonAn", TenMonAn);
                     cmd.Parameters.AddWithValue("@URLHinhMonAn", URLHinhMonAn);
                     cmd.Parameters.AddWithValue("@MoTa", MoTa);
